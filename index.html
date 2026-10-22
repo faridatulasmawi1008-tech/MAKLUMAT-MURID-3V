@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Pengumpulan Maklumat Murid & Penjaga</title>
+  <title>Sistem Pengumpulan Maklumat Murid & Penjaga - Kelas 3V</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-  <!-- Header / Navigation Bar -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
@@ -47,7 +46,7 @@
           </div>
           <div>
             <h1 class="font-bold text-lg text-slate-800 leading-tight">e-Maklumat Murid</h1>
-            <p class="text-xs text-slate-500 font-medium">Borang Maklumat & Portal Guru (21 Murid)</p>
+            <p class="text-xs text-slate-500 font-medium">Borang Maklumat & Portal Guru (Kelas 3V - 21 Murid)</p>
           </div>
         </div>
 
@@ -77,18 +76,17 @@
 
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
 
-    <!-- VIEW 1: PARENT / GUARDIAN ENTRY FORM -->
     <div id="parentView" class="space-y-6">
       
       <!-- Top Instruction Card -->
       <div class="bg-gradient-to-r from-indigo-700 via-indigo-800 to-blue-800 rounded-2xl p-6 text-white shadow-xl">
         <div class="max-w-3xl">
           <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold mb-3 tracking-wide">
-            PERHATIAN IBU BAPA & PENJAGA
+            PERHATIAN IBU BAPA & PENJAGA KELAS 3V
           </span>
           <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Pengisian Maklumat Murid</h2>
           <p class="mt-2 text-indigo-100 text-sm sm:text-base leading-relaxed">
-            Sila pilih nama anak anda daripada senarai di bawah dan lengkapkan butiran penjaga serta tanggungan keluarga untuk simpanan rekod pihak sekolah.
+            Sila pilih nama anak anda (Kelas 3V) daripada senarai di bawah dan lengkapkan butiran penjaga serta tanggungan keluarga untuk simpanan rekod pihak sekolah.
           </p>
         </div>
       </div>
@@ -234,18 +232,17 @@
 
     </div>
 
-    <!-- VIEW 2: TEACHER DASHBOARD & SUMMARY TABLE -->
     <div id="teacherView" class="space-y-6 hidden">
       
       <!-- Teacher Top Bar -->
       <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div class="flex items-center space-x-2">
-            <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-indigo-100 text-indigo-700">PORTAL GURU KELAS</span>
+            <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-indigo-100 text-indigo-700">PORTAL GURU KELAS 3V</span>
             <span class="text-xs text-slate-400">|</span>
             <span class="text-xs text-slate-500">Jumlah Kapasiti: <strong>21 Orang</strong></span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-800 mt-1">Rumusan Status Maklumat Murid</h2>
+          <h2 class="text-xl font-extrabold text-slate-800 mt-1">Rumusan Status Maklumat Murid Kelas 3V</h2>
         </div>
 
         <!-- Utility Buttons -->
@@ -376,7 +373,6 @@
 
   </main>
 
-  <!-- MODAL: Manage 21 Student Names -->
   <div id="manageNamesModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
       <div class="flex justify-between items-center pb-2 border-b border-slate-100">
@@ -440,7 +436,7 @@
 
       <div class="flex justify-between items-center pt-3 border-t border-slate-100">
         <button type="button" onclick="resetToDefaultNames()" class="text-xs text-rose-600 hover:underline">
-          Muat Semula Contoh Asal
+          Muat Semula Senarai Asal 3V
         </button>
         <div class="flex space-x-2">
           <button type="button" onclick="closeManageStudentsModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
@@ -454,125 +450,149 @@
   </div>
 
   <script>
-    // Default list of 21 students for the Malaysian classroom context
+    // Senarai rasmi 21 orang murid Kelas 3V
     const DEFAULT_STUDENTS = [
-AAIRA SOFIA BINTI MOHD FAIRUZHAMIZAN
-ABIGAIL
-AFFAN NAJHMUDDIN BIN ARIEF
-AMIRUL IKRAM BIN AMRAN
-ARIF ASYRAF BIN ABDUL AZIZ
-AURISKA FITIYA BINTI MOHD SAIFULLAH
-CHELSEA OLIVIA RAHAYU PUTRI
-KHALID MUSLIM BIN MUHAMMAD TAUFIQ
-LUTH EIJAZ BIN ABDUL MALEK
-MOHAMAD HAZIQ HAIQAL BIN MOHAMAD AZLAN
-MOHAMAD KHAIRUL ALIFF DANIAL BIN RAMLI
-MUHAMMAD AZIMUDDIN BIN BAHARUDDIN
-MUHAMMAD FAEEQ HAYIAN BIN NOREYAZMI
-MUHAMMAD IFZAN EZZNI BIN AZMIZAN
-MUHAMMAD ZARIF IMAN BIN MOHD IKHWAN
-NUR AULIA IZZATUNNISA BINTI MUHAMAD RIZAL
-NUR SUMAYYAH JANNAH BINTI MOHAMAD ASRI
-PRAVEEN SINGH A/L SANJEEV SINGH
-RAFFYLEO RICHARD
-UNGKU AMINAH MADIHAH BINTI UNGKU MOHD NAJIB
-YUNUS BIN MOHD.NAJIB
+      "1. AAIRA SOFIA BINTI MOHD FAIRUZHAMIZAN",
+      "2. ABIGAIL",
+      "3. AFFAN NAJHMUDDIN BIN ARIEF",
+      "4. AMIRUL IKRAM BIN AMRAN",
+      "5. ARIF ASYRAF BIN ABDUL AZIZ",
+      "6. AURISKA FITIYA BINTI MOHD SAIFULLAH",
+      "7. CHELSEA OLIVIA RAHAYU PUTRI",
+      "8. KHALID MUSLIM BIN MUHAMMAD TAUFIQ",
+      "9. LUTH EIJAZ BIN ABDUL MALEK",
+      "10. MOHAMAD HAZIQ HAIQAL BIN MOHAMAD AZLAN",
+      "11. MOHAMAD KHAIRUL ALIFF DANIAL BIN RAMLI",
+      "12. MUHAMMAD AZIMUDDIN BIN BAHARUDDIN",
+      "13. MUHAMMAD FAEEQ HAYIAN BIN NOREYAZMI",
+      "14. MUHAMMAD IFZAN EZZNI BIN AZMIZAN",
+      "15. MUHAMMAD ZARIF IMAN BIN MOHD IKHWAN",
+      "16. NUR AULIA IZZATUNNISA BINTI MUHAMAD RIZAL",
+      "17. NUR SUMAYYAH JANNAH BINTI MOHAMAD ASRI",
+      "18. PRAVEEN SINGH A/L SANJEEV SINGH",
+      "19. RAFFYLEO RICHARD",
+      "20. UNGKU AMINAH MADIHAH BINTI UNGKU MOHD NAJIB",
+      "21. YUNUS BIN MOHD.NAJIB"
     ];
 
-    // In-Memory state for the session
     let studentList = [];
     let studentRecords = {}; // Keyed by studentId
+    let currentG2IsNA = false;
 
     window.onload = function() {
       initApplication();
     };
 
     function initApplication() {
-      // 1. Setup Student List (from memory or defaults)
-      studentList = [...DEFAULT_STUDENTS];
+      // 1. Muat turun senarai murid dari LocalStorage jika ada
+      const savedList = localStorage.getItem('class3v_students');
+      if (savedList) {
+        try {
+          studentList = JSON.parse(savedList);
+        } catch (e) {
+          studentList = [...DEFAULT_STUDENTS];
+        }
+      } else {
+        studentList = [...DEFAULT_STUDENTS];
+      }
 
-      // 2. Initialize blank records for all 21 students
+      // 2. Muat turun rekod data jika pernah disimpan
+      const savedRecords = localStorage.getItem('class3v_records');
+      if (savedRecords) {
+        try {
+          studentRecords = JSON.parse(savedRecords);
+        } catch(e) {
+          studentRecords = {};
+        }
+      }
+
+      // 3. Pastikan setiap murid mempunyai entri rekod sah
       studentList.forEach((name, index) => {
         const id = "STU_" + (index + 1);
-        studentRecords[id] = {
-          id: id,
-          name: name,
-          g1_name: "",
-          g1_ic: "",
-          g1_income: "",
-          g2_name: "",
-          g2_ic: "",
-          g2_income: "",
-          g2_is_na: false, // Flag for "Tiada Maklumat Penjaga 2"
-          dependents: "",
-          lastUpdated: null,
-          isSubmitted: false
-        };
+        if (!studentRecords[id]) {
+          studentRecords[id] = {
+            id: id,
+            name: name,
+            g1_name: "",
+            g1_ic: "",
+            g1_income: "",
+            g2_name: "",
+            g2_ic: "",
+            g2_income: "",
+            g2_is_na: false,
+            dependents: "",
+            lastUpdated: null,
+            isSubmitted: false
+          };
+        } else {
+          studentRecords[id].name = name;
+        }
       });
 
-      // 3. Pre-fill a few sample mock entries so the teacher dashboard looks realistic initially
-      seedSampleData();
-
-      // 4. Populate student select dropdown & summary
+      // 4. Muat dropdown dan paparan dashboard
       populateStudentDropdown();
       updateTeacherDashboard();
     }
 
-    // Add some initial demonstration data
-    function seedSampleData() {
-      // Student 1: Fully completed with both parents
-      studentRecords["STU_1"] = {
-        id: "STU_1",
-        name: studentList[0],
-        g1_name: "MOHD FAUZI BIN ISMAIL",
-        g1_ic: "800315-01-5231",
-        g1_income: "4500",
-        g2_name: "NORLIDA BINTI HASHIM",
-        g2_ic: "820921-01-5820",
-        g2_income: "3200",
-        g2_is_na: false,
-        dependents: "4",
-        lastUpdated: new Date().toLocaleDateString('ms-MY'),
-        isSubmitted: true
-      };
+    function saveStateToLocalStorage() {
+      try {
+        localStorage.setItem('class3v_students', JSON.stringify(studentList));
+        localStorage.setItem('class3v_records', JSON.stringify(studentRecords));
+      } catch (e) {
+        console.warn("Penyimpanan LocalStorage terhalang:", e);
+      }
+    }
 
-      // Student 2: Fully completed with Penjaga 2 as "Tiada Maklumat" (Single parent)
-      studentRecords["STU_2"] = {
-        id: "STU_2",
-        name: studentList[1],
-        g1_name: "ZULKIFLI BIN EMBONG",
-        g1_ic: "781112-11-5345",
-        g1_income: "2800",
-        g2_name: "TIADA MAKLUMAT",
-        g2_ic: "TIADA MAKLUMAT",
-        g2_income: "0",
-        g2_is_na: true,
-        dependents: "3",
-        lastUpdated: new Date().toLocaleDateString('ms-MY'),
-        isSubmitted: true
-      };
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("toast");
+      const toastMsg = document.getElementById("toastMessage");
+      const toastIcon = document.getElementById("toastIcon");
 
-      // Student 3: Partially filled / Incomplete
-      studentRecords["STU_3"] = {
-        id: "STU_3",
-        name: studentList[2],
-        g1_name: "KHAIRUL BIN OTHMAN",
-        g1_ic: "", // Missing IC
-        g1_income: "3800",
-        g2_name: "", // Missing G2 info and not set to NA
-        g2_ic: "",
-        g2_income: "",
-        g2_is_na: false,
-        dependents: "2",
-        lastUpdated: new Date().toLocaleDateString('ms-MY'),
-        isSubmitted: true
-      };
+      toastMsg.textContent = message;
+
+      if (type === "success") {
+        toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+      } else if (type === "warning") {
+        toastIcon.className = "fa-solid fa-triangle-exclamation text-amber-400 text-lg";
+      } else if (type === "error") {
+        toastIcon.className = "fa-solid fa-circle-xmark text-rose-400 text-lg";
+      } else {
+        toastIcon.className = "fa-solid fa-circle-info text-blue-400 text-lg";
+      }
+
+      toast.classList.remove("translate-y-[-100px]", "opacity-0");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      setTimeout(() => {
+        toast.classList.remove("translate-y-0", "opacity-100");
+        toast.classList.add("translate-y-[-100px]", "opacity-0");
+      }, 3500);
+    }
+
+    function switchView(viewName) {
+      const parentView = document.getElementById("parentView");
+      const teacherView = document.getElementById("teacherView");
+      const tabParent = document.getElementById("tabParentBtn");
+      const tabTeacher = document.getElementById("tabTeacherBtn");
+
+      if (viewName === 'parent') {
+        parentView.classList.remove("hidden");
+        teacherView.classList.add("hidden");
+        tabParent.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm";
+        tabTeacher.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200";
+      } else {
+        parentView.classList.add("hidden");
+        teacherView.classList.remove("hidden");
+        tabTeacher.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm";
+        tabParent.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200";
+        renderTable();
+      }
     }
 
     function populateStudentDropdown() {
       const select = document.getElementById("studentSelect");
       const currentVal = select.value;
-      select.innerHTML = '<option value="" disabled selected>-- Sila Pilih Nama Murid (21 Orang) --</option>';
+      select.innerHTML = '<option value="" disabled selected>-- Sila Pilih Nama Murid Kelas 3V (21 Orang) --</option>';
 
       studentList.forEach((name, index) => {
         const id = "STU_" + (index + 1);
@@ -597,27 +617,6 @@ YUNUS BIN MOHD.NAJIB
       return "Kurang " + missing.length + " maklumat";
     }
 
-    // Switch between Parent View and Teacher Dashboard
-    function switchView(viewName) {
-      const parentView = document.getElementById("parentView");
-      const teacherView = document.getElementById("teacherView");
-      const tabParent = document.getElementById("tabParentBtn");
-      const tabTeacher = document.getElementById("tabTeacherBtn");
-
-      if (viewName === 'parent') {
-        parentView.classList.remove("hidden");
-        teacherView.classList.add("hidden");
-        tabParent.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm";
-        tabTeacher.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200";
-      } else {
-        parentView.classList.add("hidden");
-        teacherView.classList.remove("hidden");
-        tabTeacher.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-indigo-700 shadow-sm";
-        tabParent.className = "flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200";
-        renderTable();
-      }
-    }
-
     function loadStudentFormData(studentId) {
       const alertBox = document.getElementById("studentFormStatusAlert");
       if (!studentId || !studentRecords[studentId]) {
@@ -627,7 +626,6 @@ YUNUS BIN MOHD.NAJIB
 
       const data = studentRecords[studentId];
 
-      // Populate input values
       document.getElementById("g1_name").value = data.g1_name || "";
       document.getElementById("g1_ic").value = data.g1_ic || "";
       document.getElementById("g1_income").value = data.g1_income || "";
@@ -638,10 +636,8 @@ YUNUS BIN MOHD.NAJIB
 
       document.getElementById("dependents").value = data.dependents || "";
 
-      // Set Guardian 2 toggle state
       applyGuardian2UI(data.g2_is_na);
 
-      // Display student status notice
       alertBox.classList.remove("hidden");
       if (!data.isSubmitted) {
         alertBox.className = "mt-3 text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200";
@@ -658,8 +654,6 @@ YUNUS BIN MOHD.NAJIB
       }
     }
 
-    // Toggle logic for "Tiada Maklumat Penjaga 2"
-    let currentG2IsNA = false;
     function toggleNoGuardian2(forceState) {
       if (forceState !== undefined) {
         currentG2IsNA = forceState;
@@ -670,7 +664,7 @@ YUNUS BIN MOHD.NAJIB
     }
 
     function applyGuardian2UI(isNA) {
-      currentG2IsNA = isNA;
+      currentG2IsNA = !!isNA;
       const g2Name = document.getElementById("g2_name");
       const g2Ic = document.getElementById("g2_ic");
       const g2Income = document.getElementById("g2_income");
@@ -707,7 +701,6 @@ YUNUS BIN MOHD.NAJIB
       }
     }
 
-    // Set individual Penjaga 2 field to NA
     function setIndividualG2NA(fieldId) {
       const field = document.getElementById(fieldId);
       if (fieldId === 'g2_income') {
@@ -738,7 +731,7 @@ YUNUS BIN MOHD.NAJIB
 
       const dependents = document.getElementById("dependents").value.trim();
 
-      // Update student in-memory record
+      // Kemas kini rekod dalam memori
       studentRecords[studentId] = {
         ...studentRecords[studentId],
         g1_name: g1Name,
@@ -753,7 +746,10 @@ YUNUS BIN MOHD.NAJIB
         isSubmitted: true
       };
 
-      // Check missing fields to provide tailored feedback
+      // Simpan ke LocalStorage
+      saveStateToLocalStorage();
+
+      // Semak 7 perkara wajib
       const missing = checkMissingFields(studentRecords[studentId]);
 
       if (missing.length === 0) {
@@ -762,7 +758,6 @@ YUNUS BIN MOHD.NAJIB
         showToast(`Maklumat disimpan, namun ada ${missing.length} maklumat belum lengkap.`, "warning");
       }
 
-      // Refresh options and dashboard
       populateStudentDropdown();
       updateTeacherDashboard();
       loadStudentFormData(studentId);
@@ -775,14 +770,6 @@ YUNUS BIN MOHD.NAJIB
       document.getElementById("studentFormStatusAlert").classList.add("hidden");
     }
 
-    // Evaluation Logic for the 7 Specific Items:
-    // 1. Nama penjaga 1
-    // 2. No KP penjaga 1
-    // 3. Pendapatan bulanan Penjaga 1
-    // 4. Nama penjaga 2 (atau butang tiada maklumat)
-    // 5. No KP penjaga 2 (atau butang tiada maklumat)
-    // 6. Pendapatan bulanan Penjaga 2 (atau butang tiada maklumat)
-    // 7. Tanggungan
     function checkMissingFields(rec) {
       const missing = [];
       if (!rec) return ["Semua Maklumat"];
@@ -802,7 +789,7 @@ YUNUS BIN MOHD.NAJIB
         missing.push("Pendapatan Penjaga 1");
       }
 
-      // Penjaga 2 checks (If marked as NA, then considered validly completed)
+      // Penjaga 2 (Jika tanda NA, dianggap telah selesai)
       if (!rec.g2_is_na) {
         // 4. Nama Penjaga 2
         if (!rec.g2_name || rec.g2_name.trim() === "") {
@@ -830,7 +817,6 @@ YUNUS BIN MOHD.NAJIB
       let completeCount = 0;
       let incompleteCount = 0;
       let notFilledCount = 0;
-      const unfilledNamesList = [];
 
       studentList.forEach((_, idx) => {
         const id = "STU_" + (idx + 1);
@@ -838,25 +824,21 @@ YUNUS BIN MOHD.NAJIB
 
         if (!rec || !rec.isSubmitted) {
           notFilledCount++;
-          unfilledNamesList.push(rec ? rec.name : `Murid #${idx + 1}`);
         } else {
           const missing = checkMissingFields(rec);
           if (missing.length === 0) {
             completeCount++;
           } else {
             incompleteCount++;
-            unfilledNamesList.push(`${rec.name} (${missing.length} medan belum lengkap)`);
           }
         }
       });
 
-      // Update counters
       document.getElementById("statTotalCount").textContent = studentList.length;
       document.getElementById("statCompleteCount").textContent = completeCount;
       document.getElementById("statIncompleteCount").textContent = incompleteCount;
       document.getElementById("statNotFilledCount").textContent = notFilledCount;
 
-      // Update badge in navigation
       const unsubmittedTotal = incompleteCount + notFilledCount;
       const badge = document.getElementById("unsubmittedBadge");
       if (unsubmittedTotal > 0) {
@@ -866,7 +848,6 @@ YUNUS BIN MOHD.NAJIB
         badge.classList.add("hidden");
       }
 
-      // Update missing summary box
       const summaryText = document.getElementById("missingSummaryText");
       if (unsubmittedTotal === 0) {
         document.getElementById("missingSummaryNotice").className = "bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-emerald-900";
@@ -897,12 +878,10 @@ YUNUS BIN MOHD.NAJIB
         const isComplete = rec.isSubmitted && missing.length === 0;
         const isIncomplete = rec.isSubmitted && missing.length > 0;
 
-        // Apply Status Filter
         if (filterStatus === "COMPLETE" && !isComplete) return;
         if (filterStatus === "INCOMPLETE" && !isIncomplete) return;
         if (filterStatus === "UNFILLED" && !isUnfilled) return;
 
-        // Apply Search Filter
         const searchPool = `${name} ${rec.g1_name} ${rec.g1_ic} ${rec.g2_name} ${rec.g2_ic}`.toLowerCase();
         if (searchTerm && !searchPool.includes(searchTerm)) {
           return;
@@ -910,7 +889,6 @@ YUNUS BIN MOHD.NAJIB
 
         matches++;
 
-        // Status badge HTML
         let statusBadge = '';
         if (isUnfilled) {
           statusBadge = '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200"><i class="fa-solid fa-circle-xmark mr-1"></i> Belum Diisi</span>';
@@ -920,7 +898,6 @@ YUNUS BIN MOHD.NAJIB
           statusBadge = '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Kurang Lengkap</span>';
         }
 
-        // Missing fields list display
         let missingContent = '';
         if (isUnfilled) {
           missingContent = '<span class="text-rose-600 font-semibold italic text-[11px]">Semua 7 perkara belum diisi</span>';
@@ -932,7 +909,6 @@ YUNUS BIN MOHD.NAJIB
             `</div>`;
         }
 
-        // Penjaga 1 Details
         let g1Display = '<span class="text-slate-400 italic">Belum diisi</span>';
         if (rec.g1_name || rec.g1_ic || rec.g1_income) {
           g1Display = `
@@ -942,7 +918,6 @@ YUNUS BIN MOHD.NAJIB
           `;
         }
 
-        // Penjaga 2 Details
         let g2Display = '<span class="text-slate-400 italic">Belum diisi</span>';
         if (rec.g2_is_na) {
           g2Display = `<span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 rounded text-[11px] font-medium border border-slate-200"><i class="fa-solid fa-ban text-slate-400 mr-1"></i> Tiada Penjaga 2</span>`;
@@ -999,7 +974,6 @@ YUNUS BIN MOHD.NAJIB
       if (!studentRecords[id]) return;
       const sName = studentRecords[id].name;
       
-      // Reset record safely without native confirm dialog
       studentRecords[id] = {
         id: id,
         name: sName,
@@ -1015,6 +989,7 @@ YUNUS BIN MOHD.NAJIB
         isSubmitted: false
       };
 
+      saveStateToLocalStorage();
       showToast(`Rekod untuk ${sName} telah dikosongkan.`, "info");
       populateStudentDropdown();
       updateTeacherDashboard();
@@ -1034,13 +1009,12 @@ YUNUS BIN MOHD.NAJIB
       });
 
       if (unfilled.length === 0) {
-        showToast("Semua murid telah lengkap, tiada senarai untuk disalin!", "success");
+        showToast("Semua murid kelas 3V telah lengkap, tiada senarai untuk disalin!", "success");
         return;
       }
 
-      const textToCopy = `PERINGATAN KEMAS KINI MAKLUMAT MURID\nSenarai murid yang belum mengisi / belum lengkap:\n\n${unfilled.join('\n')}\n\nMohon ibu bapa / penjaga berkaitan mengambil tindakan segera. Terima kasih.`;
+      const textToCopy = `PERINGATAN KEMAS KINI MAKLUMAT MURID KELAS 3V\nSenarai murid yang belum mengisi / belum lengkap:\n\n${unfilled.join('\n')}\n\nMohon ibu bapa / penjaga berkaitan mengambil tindakan segera. Terima kasih.`;
 
-      // Fallback copy compatible with standard iframe
       const dummy = document.createElement("textarea");
       document.body.appendChild(dummy);
       dummy.value = textToCopy;
@@ -1052,7 +1026,7 @@ YUNUS BIN MOHD.NAJIB
     }
 
     function exportToCSV() {
-      let csv = "Bil,Nama Murid,Status,Nama Penjaga 1,No KP Penjaga 1,Pendapatan Penjaga 1 (RM),Nama Penjaga 2,No KP Penjaga 2,Pendapatan Penjaga 2 (RM),Tanggungan,Medan Tidak Lengkap\n";
+      let csv = "Bil,Nama Murid (Kelas 3V),Status,Nama Penjaga 1,No KP Penjaga 1,Pendapatan Penjaga 1 (RM),Nama Penjaga 2,No KP Penjaga 2,Pendapatan Penjaga 2 (RM),Tanggungan,Medan Tidak Lengkap\n";
 
       studentList.forEach((name, idx) => {
         const id = "STU_" + (idx + 1);
@@ -1089,18 +1063,17 @@ YUNUS BIN MOHD.NAJIB
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `Rumusan_Maklumat_21_Murid_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `Rumusan_Maklumat_Murid_3V_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      showToast("Fail CSV berjaya dimuat turun!", "success");
+      showToast("Fail CSV Kelas 3V berjaya dimuat turun!", "success");
     }
 
     function openManageStudentsModal() {
       document.getElementById("customStudentNamesTextarea").value = studentList.join("\n");
       updateDetectedCount();
-      switchImportTab('paste');
       document.getElementById("manageNamesModal").classList.remove("hidden");
     }
 
@@ -1108,106 +1081,50 @@ YUNUS BIN MOHD.NAJIB
       document.getElementById("manageNamesModal").classList.add("hidden");
     }
 
-    // Toggle between Paste and File CSV tabs
-    function switchImportTab(tab) {
+    function switchImportTab(mode) {
       const pasteArea = document.getElementById("pasteImportArea");
       const fileArea = document.getElementById("fileImportArea");
-      const tabCopy = document.getElementById("importTabCopyBtn");
-      const tabFile = document.getElementById("importTabFileBtn");
+      const btnPaste = document.getElementById("importTabCopyBtn");
+      const btnFile = document.getElementById("importTabFileBtn");
 
-      if (tab === 'paste') {
+      if (mode === 'paste') {
         pasteArea.classList.remove("hidden");
         fileArea.classList.add("hidden");
-        tabCopy.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
-        tabFile.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+        btnPaste.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
+        btnFile.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
       } else {
         pasteArea.classList.add("hidden");
         fileArea.classList.remove("hidden");
-        tabFile.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
-        tabCopy.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+        btnFile.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
+        btnPaste.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
       }
     }
 
     function updateDetectedCount() {
-      const text = document.getElementById("customStudentNamesTextarea").value.trim();
-      if (!text) {
-        document.getElementById("detectedCountLabel").textContent = "0 Nama";
-        return;
-      }
-      const count = text.split("\n").filter(l => l.trim().length > 0).length;
-      document.getElementById("detectedCountLabel").textContent = `${count} Nama dikesan`;
-    }
-
-    // Handle CSV file upload directly in browser
-    function handleCSVFileUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const content = e.target.result;
-        const lines = content.split(/\r?\n/).filter(line => line.trim().length > 0);
-        
-        const extractedNames = [];
-        lines.forEach((line, idx) => {
-          // If first row looks like a header (e.g. "Nama Murid", "Name", "Bil"), skip it
-          if (idx === 0 && (line.toLowerCase().includes("nama") || line.toLowerCase().includes("name") || line.toLowerCase().includes("bil"))) {
-            return;
-          }
-          // Split by comma or tab (handles TSV and CSV)
-          const columns = line.split(/,|\t/);
-          let candidate = columns[0].replace(/^["']|["']$/g, '').trim();
-
-          // If the first column is just a number (index), use the second column if present
-          if (/^\d+$/.test(candidate) && columns.length > 1) {
-            candidate = columns[1].replace(/^["']|["']$/g, '').trim();
-          }
-
-          if (candidate) {
-            extractedNames.push(candidate);
-          }
-        });
-
-        if (extractedNames.length > 0) {
-          document.getElementById("customStudentNamesTextarea").value = extractedNames.join("\n");
-          switchImportTab('paste');
-          updateDetectedCount();
-          showToast(`Berjaya membaca ${extractedNames.length} nama murid daripada fail!`, "success");
-        } else {
-          showToast("Tiada nama dapat dikesan dari fail ini.", "error");
-        }
-      };
-      reader.readAsText(file);
+      const raw = document.getElementById("customStudentNamesTextarea").value;
+      const lines = raw.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+      document.getElementById("detectedCountLabel").textContent = `${lines.length} Nama dikesan`;
     }
 
     function saveCustomStudentNames() {
-      const text = document.getElementById("customStudentNamesTextarea").value.trim();
-      if (!text) {
-        showToast("Senarai nama tidak boleh kosong!", "error");
-        return;
-      }
-
+      const raw = document.getElementById("customStudentNamesTextarea").value;
       const cleanNumbering = document.getElementById("autoCleanNumbering").checked;
 
-      const lines = text.split("\n")
-        .map(l => l.trim())
-        .filter(l => l.length > 0)
-        .map(l => {
-          if (cleanNumbering) {
-            // Strip leading index numbers like "1. ", "1 - ", "01. "
-            return l.replace(/^\d+[\.\-\)\s]+/, '').trim();
-          }
-          return l;
-        });
+      let lines = raw.split("\n")
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+
+      if (cleanNumbering) {
+        lines = lines.map(line => line.replace(/^[\d]+[\.\-\)\s]+/, '').trim());
+      }
 
       if (lines.length === 0) {
-        showToast("Sila masukkan sekurang-kurangnya satu nama.", "error");
+        showToast("Senarai nama tidak boleh dibiarkan kosong!", "error");
         return;
       }
 
       studentList = lines;
 
-      // Ensure every new student entry has a record object
       studentList.forEach((name, index) => {
         const id = "STU_" + (index + 1);
         if (!studentRecords[id]) {
@@ -1230,6 +1147,7 @@ YUNUS BIN MOHD.NAJIB
         }
       });
 
+      saveStateToLocalStorage();
       populateStudentDropdown();
       updateTeacherDashboard();
       closeManageStudentsModal();
@@ -1241,31 +1159,37 @@ YUNUS BIN MOHD.NAJIB
       updateDetectedCount();
     }
 
-    // In-app Toast message (Never using window.alert)
-    function showToast(msg, type = "success") {
-      const toast = document.getElementById("toast");
-      const icon = document.getElementById("toastIcon");
-      const message = document.getElementById("toastMessage");
+    function handleCSVFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
 
-      message.textContent = msg;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const content = e.target.result;
+        const rows = content.split(/\r?\n/).map(r => r.trim()).filter(r => r.length > 0);
+        
+        const extractedNames = [];
+        rows.forEach((row, idx) => {
+          if (idx === 0 && (row.toLowerCase().includes("nama") || row.toLowerCase().includes("name"))) {
+            return;
+          }
+          const cols = row.split(",");
+          let potentialName = cols[0].replace(/^["']|["']$/g, '').trim();
+          if (potentialName) {
+            extractedNames.push(potentialName);
+          }
+        });
 
-      if (type === "success") {
-        icon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
-      } else if (type === "warning") {
-        icon.className = "fa-solid fa-triangle-exclamation text-amber-400 text-lg";
-      } else if (type === "error") {
-        icon.className = "fa-solid fa-circle-exclamation text-rose-400 text-lg";
-      } else {
-        icon.className = "fa-solid fa-circle-info text-blue-400 text-lg";
-      }
-
-      toast.classList.remove("opacity-0", "translate-y-[-100px]", "pointer-events-none");
-      toast.classList.add("opacity-100", "translate-y-0");
-
-      setTimeout(() => {
-        toast.classList.remove("opacity-100", "translate-y-0");
-        toast.classList.add("opacity-0", "translate-y-[-100px]", "pointer-events-none");
-      }, 3500);
+        if (extractedNames.length > 0) {
+          document.getElementById("customStudentNamesTextarea").value = extractedNames.join("\n");
+          switchImportTab('paste');
+          updateDetectedCount();
+          showToast(`${extractedNames.length} nama dikesan daripada fail CSV!`, "success");
+        } else {
+          showToast("Tiada nama dapat dikesan dalam fail tersebut.", "error");
+        }
+      };
+      reader.readAsText(file);
     }
   </script>
 </body>
