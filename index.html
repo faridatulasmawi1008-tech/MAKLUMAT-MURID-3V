@@ -3,50 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Pengumpulan Maklumat Murid & Penjaga - Kelas 3V</title>
+  <title>Sistem Maklumat Murid & Penjaga - Kelas 3V</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
     }
     @media print {
       .no-print {
         display: none !important;
       }
-      .print-only {
-        display: block !important;
+      body {
+        background-color: white !important;
       }
     }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm no-print">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Tajuk -->
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-indigo-100">
-            <i class="fa-solid fa-graduation-cap text-lg"></i>
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-indigo-100">
+            3V
           </div>
           <div>
-            <h1 class="font-bold text-lg text-slate-800 leading-tight">e-Maklumat Murid</h1>
-            <p class="text-xs text-slate-500 font-medium">Borang Maklumat & Portal Guru (Kelas 3V - 21 Murid)</p>
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Sistem Data Murid & Penjaga</h1>
+            <p class="text-xs text-slate-500 font-medium">Pengurusan Maklumat Rasmi Kelas 3V</p>
           </div>
         </div>
 
@@ -56,184 +46,186 @@
             <i class="fa-solid fa-file-pen"></i>
             <span>Borang Waris</span>
           </button>
-          <button id="tabTeacherBtn" onclick="switchView('teacher')" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200">
-            <i class="fa-solid fa-chart-pie"></i>
+          <button id="tabTeacherBtn" onclick="handleTeacherTabClick()" class="flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-200">
+            <i class="fa-solid fa-lock" id="teacherTabLockIcon"></i>
             <span>Dashboard Guru</span>
-            <span id="unsubmittedBadge" class="ml-1 px-1.5 py-0.2 bg-rose-500 text-white rounded-full text-[10px] hidden">0</span>
+            <span id="unsubmittedBadge" class="ml-1 px-1.5 py-0.5 bg-rose-500 text-white rounded-full text-[10px] hidden">0</span>
           </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Notification Banner / Toast Container -->
-  <div id="toast" class="fixed top-20 right-4 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none">
-    <div class="bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl flex items-center space-x-3 border border-slate-700">
-      <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-      <span id="toastMessage" class="text-sm font-medium">Mesej makluman</span>
-    </div>
-  </div>
-
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
 
-    <div id="parentView" class="space-y-6">
-      
-      <!-- Top Instruction Card -->
-      <div class="bg-gradient-to-r from-indigo-700 via-indigo-800 to-blue-800 rounded-2xl p-6 text-white shadow-xl">
-        <div class="max-w-3xl">
-          <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold mb-3 tracking-wide">
-            PERHATIAN IBU BAPA & PENJAGA KELAS 3V
+    <!-- ========================================== -->
+    <!-- 1. PAPARAN BORANG IBU BAPA / WARIS          -->
+    <!-- ========================================== -->
+    <div id="parentView" class="space-y-6 max-w-3xl mx-auto">
+      <!-- Kad Selamat Datang & Panduan -->
+      <div class="bg-gradient-to-r from-indigo-700 to-indigo-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div class="relative z-10">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/30 text-indigo-100 border border-indigo-400/30 mb-3">
+            <i class="fa-solid fa-bell mr-1.5 text-amber-300"></i> Untuk Perhatian Ibu Bapa / Waris Kelas 3V
           </span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Pengisian Maklumat Murid</h2>
-          <p class="mt-2 text-indigo-100 text-sm sm:text-base leading-relaxed">
-            Sila pilih nama anak anda (Kelas 3V) daripada senarai di bawah dan lengkapkan butiran penjaga serta tanggungan keluarga untuk simpanan rekod pihak sekolah.
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">Pengemaskinian Maklumat Penjaga & Pendapatan</h2>
+          <p class="text-indigo-100 text-xs sm:text-sm mt-2 max-w-xl leading-relaxed">
+            Sila pilih nama anak anda dari senarai di bawah dan lengkapkan maklumat Penjaga 1, Penjaga 2 (Ibu) dan jumlah tanggungan bagi tujuan rekod sekolah.
           </p>
         </div>
+        <div class="absolute -right-8 -bottom-8 w-48 h-48 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
       </div>
 
-      <!-- Main Form Container -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-        <form id="studentDataForm" onsubmit="handleFormSubmit(event)" class="space-y-8">
-          
-          <!-- Step 1: Select Student -->
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
-            <label for="studentSelect" class="block text-sm font-bold text-slate-800 mb-2">
-              <i class="fa-solid fa-user-graduate text-indigo-600 mr-1.5"></i>
-              1. Pilih Nama Murid <span class="text-rose-500">*</span>
+      <!-- Borang Maklumat -->
+      <form id="studentDataForm" onsubmit="handleFormSubmit(event)" class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-8">
+        
+        <!-- Bahagian: Pilih Murid -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="studentSelect" class="block text-sm font-bold text-slate-800">
+              1. Pilih Nama Murid (Kelas 3V) <span class="text-rose-500">*</span>
             </label>
-            <p class="text-xs text-slate-500 mb-3">Pilih nama anak anda daripada senarai 21 orang murid berikut.</p>
-            <div class="relative">
-              <select id="studentSelect" onchange="loadStudentFormData(this.value)" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-800 font-medium focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
-                <option value="" disabled selected>-- Sila Pilih Nama Murid --</option>
-              </select>
-            </div>
-            <div id="studentFormStatusAlert" class="mt-3 hidden text-xs font-semibold px-3 py-2 rounded-lg"></div>
+            <span class="text-xs text-slate-500">21 Murid Didaftarkan</span>
           </div>
-
-          <!-- Step 2: Penjaga 1 (Bapa / Utama) -->
-          <div class="border-t border-slate-100 pt-6">
-            <div class="flex items-center space-x-2 mb-4">
-              <span class="w-7 h-7 bg-indigo-100 text-indigo-700 font-bold rounded-lg flex items-center justify-center text-xs">P1</span>
-              <div>
-                <h3 class="text-base font-bold text-slate-800">Maklumat Penjaga 1 (Bapa / Penjaga Utama)</h3>
-                <p class="text-xs text-slate-500">Wajib diisi sekiranya ada bapa atau penjaga yang sah.</p>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                  Nama Penuh Penjaga 1 <span class="text-rose-500">*</span>
-                </label>
-                <input type="text" id="g1_name" placeholder="cth: AHMAD BIN ABDULLAH" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                  No. Kad Pengenalan Penjaga 1 <span class="text-rose-500">*</span>
-                </label>
-                <input type="text" id="g1_ic" maxlength="14" placeholder="cth: 800101-01-1234" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                  Pendapatan Bulanan (RM) <span class="text-rose-500">*</span>
-                </label>
-                <div class="relative">
-                  <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-semibold">RM</span>
-                  <input type="number" id="g1_income" min="0" step="50" placeholder="0 jika tiada" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-11 pr-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
-                </div>
-              </div>
+          <div class="relative">
+            <select id="studentSelect" onchange="loadStudentFormData(this.value)" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition cursor-pointer appearance-none">
+              <option value="" disabled selected>-- Sila Klik Untuk Pilih Nama Murid --</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
             </div>
           </div>
+          <p id="studentFilledNotice" class="hidden mt-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-center">
+            <i class="fa-solid fa-circle-info mr-2 text-amber-600"></i>
+            <span>Murid ini telah mempunyai rekod sebelum ini. Anda boleh mengemaskini maklumat di bawah.</span>
+          </p>
+        </div>
 
-          <!-- Step 3: Penjaga 2 (Ibu / Kedua) with "Tiada Maklumat" Switch -->
-          <div class="border-t border-slate-100 pt-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-              <div class="flex items-center space-x-2">
-                <span class="w-7 h-7 bg-pink-100 text-pink-700 font-bold rounded-lg flex items-center justify-center text-xs">P2</span>
-                <div>
-                  <h3 class="text-base font-bold text-slate-800">Maklumat Penjaga 2 (Ibu / Penjaga Kedua)</h3>
-                  <p class="text-xs text-slate-500">Isi maklumat ibu atau tandakan jika tiada penjaga kedua.</p>
-                </div>
-              </div>
+        <hr class="border-slate-100">
 
-              <!-- Quick action to toggle No Guardian 2 -->
-              <button type="button" id="toggleG2Btn" onclick="toggleNoGuardian2()" class="inline-flex items-center justify-center space-x-2 text-xs font-bold px-3 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 transition">
-                <i class="fa-regular fa-circle-xmark text-slate-500" id="g2ToggleIcon"></i>
-                <span id="g2ToggleText">Setkan: Tiada Maklumat Penjaga 2</span>
-              </button>
-            </div>
-
-            <div id="g2FieldsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-5 transition-all">
-              <div>
-                <div class="flex justify-between items-center mb-1.5">
-                  <label class="block text-xs font-semibold text-slate-700">Nama Penjaga 2 (Ibu)</label>
-                  <button type="button" onclick="setIndividualG2NA('g2_name')" class="text-[11px] text-indigo-600 hover:underline">Tiada Maklumat</button>
-                </div>
-                <input type="text" id="g2_name" placeholder="cth: SITI BINTI ALI" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase">
-              </div>
-
-              <div>
-                <div class="flex justify-between items-center mb-1.5">
-                  <label class="block text-xs font-semibold text-slate-700">No. KP Penjaga 2</label>
-                  <button type="button" onclick="setIndividualG2NA('g2_ic')" class="text-[11px] text-indigo-600 hover:underline">Tiada Maklumat</button>
-                </div>
-                <input type="text" id="g2_ic" maxlength="14" placeholder="cth: 820202-02-5678" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
-              </div>
-
-              <div>
-                <div class="flex justify-between items-center mb-1.5">
-                  <label class="block text-xs font-semibold text-slate-700">Pendapatan Penjaga 2</label>
-                  <button type="button" onclick="setIndividualG2NA('g2_income')" class="text-[11px] text-indigo-600 hover:underline">Tiada Pendapatan / RM 0</button>
-                </div>
-                <div class="relative">
-                  <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-semibold">RM</span>
-                  <input type="number" id="g2_income" min="0" step="50" placeholder="0 jika tiada / suri rumah" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-11 pr-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
-                </div>
-              </div>
-            </div>
-
-            <!-- Note if marked NA -->
-            <div id="g2DisabledNotice" class="hidden mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-center justify-between">
-              <span class="flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-amber-600"></i> Ditetapkan sebagai: Murid tiada Penjaga 2 (Ibu tunggal / Bapa tunggal / Yatim).</span>
-              <button type="button" onclick="toggleNoGuardian2(false)" class="underline font-bold text-amber-900">Isi Semula</button>
-            </div>
+        <!-- Bahagian: Penjaga 1 -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2 border-l-4 border-indigo-600 pl-3">
+            <h3 class="text-base font-bold text-slate-900">Maklumat Penjaga 1 (Bapa / Penjaga Utama)</h3>
           </div>
 
-          <!-- Step 4: Tanggungan -->
-          <div class="border-t border-slate-100 pt-6">
-            <div class="max-w-md">
-              <label class="block text-sm font-bold text-slate-800 mb-1">
-                <i class="fa-solid fa-users text-indigo-600 mr-1.5"></i>
-                Bilangan Tanggungan <span class="text-rose-500">*</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Nama Penjaga 1 -->
+            <div class="sm:col-span-2">
+              <label for="g1Name" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Nama Penuh Penjaga 1 <span class="text-rose-500">*</span>
               </label>
-              <p class="text-xs text-slate-500 mb-3">Termasuk anak-anak yang belum bekerja atau ahli keluarga di bawah tanggungan isi rumah.</p>
-              <div class="flex items-center space-x-3">
-                <input type="number" id="dependents" min="1" max="25" placeholder="Contoh: 4" class="w-40 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-medium focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
-                <span class="text-xs text-slate-500 font-medium">orang</span>
+              <input type="text" id="g1Name" required placeholder="Contoh: MOHD FAIRUZHAMIZAN BIN AHMAD" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm uppercase focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+
+            <!-- No KP Penjaga 1 -->
+            <div>
+              <label for="g1Ic" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                No. Kad Pengenalan Penjaga 1 <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="g1Ic" required placeholder="Contoh: 850101015555" maxlength="14" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+              <span class="text-[11px] text-slate-400 mt-1 block">Tanpa tanda sempang (-)</span>
+            </div>
+
+            <!-- Pendapatan Penjaga 1 -->
+            <div>
+              <label for="g1Income" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Pendapatan Bulanan Penjaga 1 (RM) <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400">RM</span>
+                <input type="number" id="g1Income" step="1" min="0" required placeholder="Contoh: 3500" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Action Buttons -->
-          <div class="border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-end gap-3">
-            <button type="button" onclick="resetCurrentForm()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-100 transition">
-              Kosongkan Borang
-            </button>
-            <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-200 flex items-center justify-center space-x-2 transition transform active:scale-95">
-              <i class="fa-solid fa-cloud-arrow-up"></i>
-              <span>Simpan & Hantar Maklumat</span>
+        <hr class="border-slate-100">
+
+        <!-- Bahagian: Penjaga 2 (Ibu) -->
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-l-4 border-indigo-600 pl-3">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Maklumat Penjaga 2 (Ibu)</h3>
+              <p class="text-xs text-slate-500">Isikan butiran ibu atau klik butang jika tiada</p>
+            </div>
+            <!-- Butang Tiada Maklumat Penjaga 2 -->
+            <button type="button" id="btnToggleG2" onclick="toggleGuardian2Status()" class="inline-flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">
+              <i class="fa-solid fa-circle-minus text-amber-600"></i>
+              <span id="btnToggleG2Text">Tiada Penjaga 2 (Setkan Tiada Maklumat)</span>
             </button>
           </div>
 
-        </form>
-      </div>
+          <div id="guardian2Fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4 transition-all">
+            <!-- Nama Penjaga 2 -->
+            <div class="sm:col-span-2">
+              <label for="g2Name" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Nama Penuh Penjaga 2 (Ibu) <span class="text-rose-500 req-star-g2">*</span>
+              </label>
+              <input type="text" id="g2Name" required placeholder="Contoh: SITI NORHALIZA BINTI HASSAN" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm uppercase focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
 
+            <!-- No KP Penjaga 2 -->
+            <div>
+              <label for="g2Ic" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                No. Kad Pengenalan Penjaga 2 <span class="text-rose-500 req-star-g2">*</span>
+              </label>
+              <input type="text" id="g2Ic" required placeholder="Contoh: 880202016666" maxlength="14" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+              <span class="text-[11px] text-slate-400 mt-1 block">Tanpa tanda sempang (-)</span>
+            </div>
+
+            <!-- Pendapatan Penjaga 2 -->
+            <div>
+              <label for="g2Income" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Pendapatan Bulanan Penjaga 2 (RM) <span class="text-rose-500 req-star-g2">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400">RM</span>
+                <input type="number" id="g2Income" step="1" min="0" required placeholder="0 jika suri rumah" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+              </div>
+              <span class="text-[11px] text-slate-400 mt-1 block">Masukkan 0 sekiranya tidak bekerja/suri rumah</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-slate-100">
+
+        <!-- Bahagian: Tanggungan -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2 border-l-4 border-indigo-600 pl-3">
+            <h3 class="text-base font-bold text-slate-900">Bilangan Tanggungan Keluarga</h3>
+          </div>
+
+          <div class="max-w-xs">
+            <label for="dependentsCount" class="block text-xs font-semibold text-slate-700 mb-1.5">
+              Bilangan Tanggungan (Termasuk Murid Ini) <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <input type="number" id="dependentsCount" min="1" max="25" required placeholder="Contoh: 4" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition">
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1 leading-normal">
+              Jumlah anak yang masih bersekolah / belum bekerja dan di bawah tanggungan isi rumah.
+            </p>
+          </div>
+        </div>
+
+        <!-- Butang Hantar -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-end gap-3">
+          <button type="button" onclick="resetForm()" class="w-full sm:w-auto px-5 py-2.5 border border-slate-300 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+            Padam Semula
+          </button>
+          <button type="submit" class="w-full sm:w-auto px-7 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Simpan Maklumat Murid</span>
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div id="teacherView" class="space-y-6 hidden">
-      
+    <!-- ========================================== -->
+    <!-- 2. PAPARAN DASHBOARD GURU                   -->
+    <!-- ========================================== -->
+    <div id="teacherView" class="hidden space-y-6">
       <!-- Teacher Top Bar -->
       <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -259,245 +251,279 @@
             <i class="fa-solid fa-file-import"></i>
             <span>Import / Urus Senarai Murid</span>
           </button>
+          <button onclick="lockTeacherDashboard()" class="px-3.5 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition" title="Kunci semula Dashboard">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Log Keluar</span>
+          </button>
         </div>
       </div>
 
-      <!-- Metric Stats Cards -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <!-- Card 1: Total -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0">
+      <!-- Kad Statistik Ringkas -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Jumlah Murid -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
             <i class="fa-solid fa-users"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-500">Jumlah Murid</p>
-            <p class="text-2xl font-black text-slate-800" id="statTotalCount">21</p>
+            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Jumlah Murid</p>
+            <h3 id="statTotal" class="text-2xl font-black text-slate-900 mt-0.5">21</h3>
           </div>
         </div>
 
-        <!-- Card 2: Lengkap -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+        <!-- Lengkap -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
             <i class="fa-solid fa-circle-check"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-500">Maklumat Lengkap</p>
-            <p class="text-2xl font-black text-emerald-600" id="statCompleteCount">0</p>
+            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Lengkap</p>
+            <h3 id="statCompleted" class="text-2xl font-black text-emerald-600 mt-0.5">0</h3>
           </div>
         </div>
 
-        <!-- Card 3: Tidak Lengkap -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
+        <!-- Belum Lengkap -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl">
             <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-500">Belum Lengkap</p>
-            <p class="text-2xl font-black text-amber-600" id="statIncompleteCount">0</p>
+            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Belum Lengkap</p>
+            <h3 id="statIncomplete" class="text-2xl font-black text-amber-600 mt-0.5">0</h3>
           </div>
         </div>
 
-        <!-- Card 4: Belum Isi -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-          <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl shrink-0">
-            <i class="fa-solid fa-clock-rotate-left"></i>
+        <!-- Belum Diisi Langsung -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-hourglass-start"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-500">Belum Mengisi</p>
-            <p class="text-2xl font-black text-rose-600" id="statNotFilledCount">21</p>
+            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Belum Isi</p>
+            <h3 id="statUnsubmitted" class="text-2xl font-black text-rose-600 mt-0.5">21</h3>
           </div>
         </div>
       </div>
 
-      <!-- Quick Alert for Missing Students -->
-      <div id="missingSummaryNotice" class="bg-rose-50 border border-rose-200 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-rose-900">
-        <div class="flex items-start space-x-3">
-          <i class="fa-solid fa-bell text-rose-600 text-lg mt-0.5"></i>
-          <div>
-            <h4 class="text-sm font-bold">Tindakan Diperlukan oleh Guru:</h4>
-            <p class="text-xs text-rose-700 mt-0.5" id="missingSummaryText">Memuatkan data...</p>
-          </div>
-        </div>
-        <button onclick="copyUnfilledNames()" class="shrink-0 px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl shadow-sm transition">
-          <i class="fa-solid fa-copy mr-1"></i> Salin Senarai Nama Belum Lengkap
-        </button>
-      </div>
-
-      <!-- Filter and Search Toolbar -->
+      <!-- Bar Carian & Penapis -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 no-print">
         <div class="relative w-full sm:w-80">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
-          <input type="text" id="searchInput" oninput="renderTable()" placeholder="Cari nama murid / KP / penjaga..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3.5 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          <input type="text" id="searchInput" oninput="renderTable()" placeholder="Cari nama murid atau no KP..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-4 py-2 text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </div>
         </div>
 
         <div class="flex items-center space-x-2 w-full sm:w-auto">
-          <label class="text-xs font-semibold text-slate-500 whitespace-nowrap">Tapis Status:</label>
-          <select id="statusFilter" onchange="renderTable()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:ring-2 focus:ring-indigo-500 outline-none w-full sm:w-auto">
-            <option value="ALL">Semua (21 Murid)</option>
-            <option value="COMPLETE">Lengkap Sahaja</option>
-            <option value="INCOMPLETE">Belum Lengkap</option>
-            <option value="UNFILLED">Belum Diisi Langsung</option>
+          <span class="text-xs font-semibold text-slate-600 whitespace-nowrap">Status:</span>
+          <select id="statusFilter" onchange="renderTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none w-full sm:w-auto">
+            <option value="all">Semua Murid</option>
+            <option value="completed">Lengkap Sahaja</option>
+            <option value="incomplete">Belum Lengkap</option>
+            <option value="unsubmitted">Belum Diisi</option>
           </select>
+          <button onclick="copyUnsubmittedList()" class="px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold flex items-center space-x-1 whitespace-nowrap transition" title="Salin senarai nama murid yang belum isi untuk dihantar ke WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Salin Nama Belum Isi</span>
+          </button>
         </div>
       </div>
 
-      <!-- Main Summary Table -->
+      <!-- Jadual Rumusan Murid -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto custom-scrollbar">
+        <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
             <thead>
-              <tr class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
-                <th class="p-3.5 text-center w-12">Bil</th>
-                <th class="p-3.5 min-w-[180px]">Nama Murid</th>
-                <th class="p-3.5 text-center min-w-[120px]">Status</th>
-                <th class="p-3.5 min-w-[200px]">Penjaga 1 (Bapa)</th>
-                <th class="p-3.5 min-w-[200px]">Penjaga 2 (Ibu)</th>
-                <th class="p-3.5 text-center min-w-[100px]">Tanggungan</th>
-                <th class="p-3.5 min-w-[220px]">Medan Tidak Lengkap</th>
-                <th class="p-3.5 text-center min-w-[130px] no-print">Tindakan</th>
+              <tr class="bg-slate-100/80 border-b border-slate-200 text-slate-700 font-bold uppercase tracking-wider">
+                <th class="py-3.5 px-3 text-center w-12">Bil</th>
+                <th class="py-3.5 px-4 min-w-[200px]">Nama Murid (3V)</th>
+                <th class="py-3.5 px-3 text-center min-w-[120px]">Status</th>
+                <th class="py-3.5 px-4 min-w-[180px]">Maklumat Penjaga 1</th>
+                <th class="py-3.5 px-4 min-w-[180px]">Maklumat Penjaga 2 (Ibu)</th>
+                <th class="py-3.5 px-3 text-center min-w-[90px]">Tanggungan</th>
+                <th class="py-3.5 px-4 min-w-[200px]">Medan Yang Belum Lengkap</th>
+                <th class="py-3.5 px-3 text-center w-24 no-print">Tindakan</th>
               </tr>
             </thead>
-            <tbody id="studentTableBody" class="divide-y divide-slate-100">
-              <!-- Dynamically populated via JavaScript -->
+            <tbody id="studentTableBody" class="divide-y divide-slate-200 text-slate-700">
+              <!-- Baris data dijana melalui JavaScript -->
             </tbody>
           </table>
         </div>
-
-        <div id="noResultsAlert" class="hidden p-8 text-center text-slate-400">
-          <i class="fa-solid fa-folder-open text-4xl mb-2 text-slate-300"></i>
-          <p class="text-sm font-medium">Tiada padanan murid dijumpai.</p>
+        <div id="emptyTableNotice" class="hidden p-8 text-center text-slate-400">
+          <i class="fa-solid fa-inbox text-3xl mb-2 block"></i>
+          <span>Tiada rekod murid yang sepadan dijumpai.</span>
         </div>
       </div>
-
     </div>
-
   </main>
 
-  <div id="manageNamesModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
-      <div class="flex justify-between items-center pb-2 border-b border-slate-100">
-        <div>
-          <h3 class="font-bold text-slate-800 text-base flex items-center">
-            <i class="fa-solid fa-file-import text-indigo-600 mr-2"></i>
-            Import & Urus Senarai Nama Murid
-          </h3>
-          <p class="text-xs text-slate-500">Pilih kaedah paling mudah untuk masukkan nama dari Excel atau Google Sheets.</p>
+  <!-- Modal Kata Laluan Guru -->
+  <div id="passwordModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-shield-halved"></i>
         </div>
-        <button onclick="closeManageStudentsModal()" class="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center">
-          <i class="fa-solid fa-xmark text-base"></i>
-        </button>
+        <div>
+          <h3 class="font-bold text-slate-800 text-base leading-tight">Akses Guru Sahaja</h3>
+          <p class="text-xs text-slate-500">Masukkan kata laluan guru kelas 3V</p>
+        </div>
       </div>
 
-      <!-- Import Methods Tabs -->
-      <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-semibold border border-slate-200">
-        <button id="importTabCopyBtn" onclick="switchImportTab('paste')" class="flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition">
-          <i class="fa-regular fa-clipboard mr-1"></i> Salin & Tampal (Disyorkan)
-        </button>
-        <button id="importTabFileBtn" onclick="switchImportTab('file')" class="flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-          <i class="fa-solid fa-file-csv mr-1"></i> Muat Naik Fail (.csv)
-        </button>
-      </div>
-
-      <!-- Tab 1: Direct Copy & Paste from Excel/Sheets -->
-      <div id="pasteImportArea" class="space-y-3">
-        <div class="bg-indigo-50/60 border border-indigo-100 rounded-xl p-3 text-[11px] text-indigo-900 leading-relaxed">
-          <strong>💡 Cara Paling Cepat:</strong>
-          Buka Microsoft Excel atau Google Sheets anda, pilih satu lajur (kolum) yang mengandungi nama murid, tekan <code>Ctrl + C</code> (Copy), kemudian tampal (<code>Ctrl + V</code>) terus di dalam kotak di bawah:
-        </div>
-
+      <form id="passwordForm" onsubmit="verifyTeacherPassword(event)" class="space-y-4">
         <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-xs font-semibold text-slate-700">Senarai Nama (1 Nama Setiap Baris):</label>
-            <span id="detectedCountLabel" class="text-[11px] font-bold text-indigo-600">21 Nama dikesan</span>
+          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Kata Laluan</label>
+          <div class="relative">
+            <input type="password" id="teacherPasswordInput" placeholder="Masukkan kata laluan" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none pr-10">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600">
+              <i class="fa-solid fa-eye text-sm" id="pwToggleIcon"></i>
+            </button>
           </div>
-          <textarea id="customStudentNamesTextarea" oninput="updateDetectedCount()" rows="9" placeholder="Ahmad Bin Abu&#10;Siti Binti Ali&#10;Muhammad Danish..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs font-mono focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none leading-relaxed"></textarea>
+          <p id="passwordErrorMsg" class="hidden text-[11px] font-semibold text-rose-600 mt-1.5 flex items-center">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i> Kata laluan tidak tepat. Sila cuba lagi.
+          </p>
         </div>
 
-        <div class="flex items-center justify-between text-[11px] text-slate-500">
-          <label class="flex items-center space-x-1.5 cursor-pointer">
-            <input type="checkbox" id="autoCleanNumbering" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-            <span>Buang nombor turutan secara automatik (cth: '1. ', '2-')</span>
+        <div class="flex space-x-2 pt-1">
+          <button type="button" onclick="closePasswordModal()" class="flex-1 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-100 transition">
+            Batal
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition">
+            Buka Dashboard
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Urus Senarai Murid / Import -->
+  <div id="manageNamesModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center">
+            <i class="fa-solid fa-file-excel"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Import Senarai Murid Dari Spreadsheet</h3>
+            <p class="text-xs text-slate-500">Salin dan tampal nama dari Excel atau Google Sheets</p>
+          </div>
+        </div>
+        <button onclick="closeManageStudentsModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Tab Input: Tampal Teks atau Fail CSV -->
+      <div class="flex border-b border-slate-200 text-xs font-semibold">
+        <button type="button" id="tabPasteBtn" onclick="switchImportTab('paste')" class="py-2 px-4 border-b-2 border-indigo-600 text-indigo-700">
+          Salin & Tampal (Excel/Sheets)
+        </button>
+        <button type="button" id="tabUploadBtn" onclick="switchImportTab('upload')" class="py-2 px-4 text-slate-500 hover:text-slate-800">
+          Muat Naik Fail (.csv)
+        </button>
+      </div>
+
+      <!-- Seksyen Tampal Teks -->
+      <div id="importPasteSection" class="space-y-3">
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Buka Microsoft Excel atau Google Sheets anda, <strong>salin (Copy) lajur nama murid</strong>, dan tampal (Paste) terus ke dalam kotak di bawah (satu baris bagi setiap seorang murid):
+        </p>
+        <textarea id="importNamesTextarea" rows="8" placeholder="Contoh:&#10;AAIRA SOFIA BINTI MOHD FAIRUZHAMIZAN&#10;ABIGAIL&#10;AFFAN NAJHMUDDIN BIN ARIEF" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+        <div class="flex items-center justify-between">
+          <label class="inline-flex items-center text-xs text-slate-600 cursor-pointer">
+            <input type="checkbox" id="chkCleanNumbers" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 mr-2">
+            <span>Buang nombor turutan secara automatik (contoh: buang "1. ", "2. ")</span>
           </label>
         </div>
       </div>
 
-      <!-- Tab 2: Upload CSV File -->
-      <div id="fileImportArea" class="space-y-3 hidden">
-        <div class="bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center hover:bg-indigo-50/30 hover:border-indigo-300 transition cursor-pointer" onclick="document.getElementById('csvFileInput').click()">
-          <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-600 mb-2"></i>
-          <p class="text-xs font-bold text-slate-700">Klik untuk pilih fail Spreadsheet (.csv)</p>
-          <p class="text-[11px] text-slate-400 mt-1">Sokongan fail CSV yang dieksport dari Microsoft Excel / Google Sheets</p>
-          <input type="file" id="csvFileInput" accept=".csv, .txt" class="hidden" onchange="handleCSVFileUpload(event)">
-        </div>
-        <p class="text-[11px] text-slate-500">
-          * Pastikan fail CSV mempunyai lajur nama murid pada lajur pertama.
+      <!-- Seksyen Muat Naik CSV -->
+      <div id="importUploadSection" class="hidden space-y-3">
+        <p class="text-xs text-slate-600">
+          Muat naik fail <strong>.CSV</strong> yang mengandungi senarai nama murid kelas anda:
         </p>
+        <div class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center hover:bg-slate-50 transition">
+          <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 mb-2"></i>
+          <p class="text-xs font-semibold text-slate-700">Pilih fail .csv dari peranti anda</p>
+          <input type="file" id="csvFileInput" accept=".csv,.txt" onchange="handleCsvFileSelected(event)" class="mt-3 text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+        </div>
       </div>
 
-      <div class="flex justify-between items-center pt-3 border-t border-slate-100">
-        <button type="button" onclick="resetToDefaultNames()" class="text-xs text-rose-600 hover:underline">
-          Muat Semula Senarai Asal 3V
+      <!-- Butang Bawah -->
+      <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+        <button type="button" onclick="closeManageStudentsModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+          Batal
         </button>
-        <div class="flex space-x-2">
-          <button type="button" onclick="closeManageStudentsModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
-          <button type="button" onclick="saveCustomStudentNames()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md flex items-center space-x-1.5">
-            <i class="fa-solid fa-check"></i>
-            <span>Simpan & Kemas Kini</span>
-          </button>
-        </div>
+        <button type="button" onclick="saveImportedStudents()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md transition">
+          Simpan & Kemas Kini
+        </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div id="toastInner" class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-xs font-medium">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span id="toastMessage">Mesej berjaya dihantar</span>
     </div>
   </div>
 
   <script>
     // Senarai rasmi 21 orang murid Kelas 3V
-    const DEFAULT_STUDENTS = [
-      "1. AAIRA SOFIA BINTI MOHD FAIRUZHAMIZAN",
-      "2. ABIGAIL",
-      "3. AFFAN NAJHMUDDIN BIN ARIEF",
-      "4. AMIRUL IKRAM BIN AMRAN",
-      "5. ARIF ASYRAF BIN ABDUL AZIZ",
-      "6. AURISKA FITIYA BINTI MOHD SAIFULLAH",
-      "7. CHELSEA OLIVIA RAHAYU PUTRI",
-      "8. KHALID MUSLIM BIN MUHAMMAD TAUFIQ",
-      "9. LUTH EIJAZ BIN ABDUL MALEK",
-      "10. MOHAMAD HAZIQ HAIQAL BIN MOHAMAD AZLAN",
-      "11. MOHAMAD KHAIRUL ALIFF DANIAL BIN RAMLI",
-      "12. MUHAMMAD AZIMUDDIN BIN BAHARUDDIN",
-      "13. MUHAMMAD FAEEQ HAYIAN BIN NOREYAZMI",
-      "14. MUHAMMAD IFZAN EZZNI BIN AZMIZAN",
-      "15. MUHAMMAD ZARIF IMAN BIN MOHD IKHWAN",
-      "16. NUR AULIA IZZATUNNISA BINTI MUHAMAD RIZAL",
-      "17. NUR SUMAYYAH JANNAH BINTI MOHAMAD ASRI",
-      "18. PRAVEEN SINGH A/L SANJEEV SINGH",
-      "19. RAFFYLEO RICHARD",
-      "20. UNGKU AMINAH MADIHAH BINTI UNGKU MOHD NAJIB",
-      "21. YUNUS BIN MOHD.NAJIB"
+    const DEFAULT_CLASS_3V = [
+      "AAIRA SOFIA BINTI MOHD FAIRUZHAMIZAN",
+      "ABIGAIL",
+      "AFFAN NAJHMUDDIN BIN ARIEF",
+      "AMIRUL IKRAM BIN AMRAN",
+      "ARIF ASYRAF BIN ABDUL AZIZ",
+      "AURISKA FITIYA BINTI MOHD SAIFULLAH",
+      "CHELSEA OLIVIA RAHAYU PUTRI",
+      "KHALID MUSLIM BIN MUHAMMAD TAUFIQ",
+      "LUTH EIJAZ BIN ABDUL MALEK",
+      "MOHAMAD HAZIQ HAIQAL BIN MOHAMAD AZLAN",
+      "MOHAMAD KHAIRUL ALIFF DANIAL BIN RAMLI",
+      "MUHAMMAD AZIMUDDIN BIN BAHARUDDIN",
+      "MUHAMMAD FAEEQ HAYIAN BIN NOREYAZMI",
+      "MUHAMMAD IFZAN EZZNI BIN AZMIZAN",
+      "MUHAMMAD ZARIF IMAN BIN MOHD IKHWAN",
+      "NUR AULIA IZZATUNNISA BINTI MUHAMAD RIZAL",
+      "NUR SUMAYYAH JANNAH BINTI MOHAMAD ASRI",
+      "PRAVEEN SINGH A/L SANJEEV SINGH",
+      "RAFFYLEO RICHARD",
+      "UNGKU AMINAH MADIHAH BINTI UNGKU MOHD NAJIB",
+      "YUNUS BIN MOHD.NAJIB"
     ];
 
     let studentList = [];
     let studentRecords = {}; // Keyed by studentId
     let currentG2IsNA = false;
+    let isTeacherAuthenticated = false;
+    const TEACHER_PASSWORD_KEY = "Husna980608";
 
     window.onload = function() {
       initApplication();
     };
 
+    // Inisialisasi Aplikasi
     function initApplication() {
-      // 1. Muat turun senarai murid dari LocalStorage jika ada
-      const savedList = localStorage.getItem('class3v_students');
-      if (savedList) {
+      // 1. Muat turun senarai murid dari localStorage atau guna senarai rasmi 3V
+      const savedStudents = localStorage.getItem("class3v_students");
+      if (savedStudents) {
         try {
-          studentList = JSON.parse(savedList);
-        } catch (e) {
-          studentList = [...DEFAULT_STUDENTS];
+          studentList = JSON.parse(savedStudents);
+        } catch(e) {
+          studentList = DEFAULT_CLASS_3V.map((name, idx) => ({ id: "s_" + (idx + 1), name: name }));
         }
       } else {
-        studentList = [...DEFAULT_STUDENTS];
+        studentList = DEFAULT_CLASS_3V.map((name, idx) => ({ id: "s_" + (idx + 1), name: name }));
+        localStorage.setItem("class3v_students", JSON.stringify(studentList));
       }
 
-      // 2. Muat turun rekod data jika pernah disimpan
-      const savedRecords = localStorage.getItem('class3v_records');
+      // 2. Muat turun rekod yang telah diisi oleh waris
+      const savedRecords = localStorage.getItem("class3v_records");
       if (savedRecords) {
         try {
           studentRecords = JSON.parse(savedRecords);
@@ -506,67 +532,8 @@
         }
       }
 
-      // 3. Pastikan setiap murid mempunyai entri rekod sah
-      studentList.forEach((name, index) => {
-        const id = "STU_" + (index + 1);
-        if (!studentRecords[id]) {
-          studentRecords[id] = {
-            id: id,
-            name: name,
-            g1_name: "",
-            g1_ic: "",
-            g1_income: "",
-            g2_name: "",
-            g2_ic: "",
-            g2_income: "",
-            g2_is_na: false,
-            dependents: "",
-            lastUpdated: null,
-            isSubmitted: false
-          };
-        } else {
-          studentRecords[id].name = name;
-        }
-      });
-
-      // 4. Muat dropdown dan paparan dashboard
       populateStudentDropdown();
-      updateTeacherDashboard();
-    }
-
-    function saveStateToLocalStorage() {
-      try {
-        localStorage.setItem('class3v_students', JSON.stringify(studentList));
-        localStorage.setItem('class3v_records', JSON.stringify(studentRecords));
-      } catch (e) {
-        console.warn("Penyimpanan LocalStorage terhalang:", e);
-      }
-    }
-
-    function showToast(message, type = "info") {
-      const toast = document.getElementById("toast");
-      const toastMsg = document.getElementById("toastMessage");
-      const toastIcon = document.getElementById("toastIcon");
-
-      toastMsg.textContent = message;
-
-      if (type === "success") {
-        toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
-      } else if (type === "warning") {
-        toastIcon.className = "fa-solid fa-triangle-exclamation text-amber-400 text-lg";
-      } else if (type === "error") {
-        toastIcon.className = "fa-solid fa-circle-xmark text-rose-400 text-lg";
-      } else {
-        toastIcon.className = "fa-solid fa-circle-info text-blue-400 text-lg";
-      }
-
-      toast.classList.remove("translate-y-[-100px]", "opacity-0");
-      toast.classList.add("translate-y-0", "opacity-100");
-
-      setTimeout(() => {
-        toast.classList.remove("translate-y-0", "opacity-100");
-        toast.classList.add("translate-y-[-100px]", "opacity-0");
-      }, 3500);
+      updateDashboardStats();
     }
 
     function switchView(viewName) {
@@ -589,607 +556,604 @@
       }
     }
 
+    function handleTeacherTabClick() {
+      if (isTeacherAuthenticated) {
+        switchView('teacher');
+      } else {
+        openPasswordModal();
+      }
+    }
+
+    function openPasswordModal() {
+      const modal = document.getElementById("passwordModal");
+      const input = document.getElementById("teacherPasswordInput");
+      const err = document.getElementById("passwordErrorMsg");
+      err.classList.add("hidden");
+      input.value = "";
+      modal.classList.remove("hidden");
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function closePasswordModal() {
+      document.getElementById("passwordModal").classList.add("hidden");
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById("teacherPasswordInput");
+      const icon = document.getElementById("pwToggleIcon");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.className = "fa-solid fa-eye-slash text-sm";
+      } else {
+        input.type = "password";
+        icon.className = "fa-solid fa-eye text-sm";
+      }
+    }
+
+    function verifyTeacherPassword(event) {
+      event.preventDefault();
+      const input = document.getElementById("teacherPasswordInput");
+      const err = document.getElementById("passwordErrorMsg");
+
+      if (input.value === TEACHER_PASSWORD_KEY) {
+        isTeacherAuthenticated = true;
+        closePasswordModal();
+        const icon = document.getElementById("teacherTabLockIcon");
+        if (icon) icon.className = "fa-solid fa-lock-open text-emerald-600";
+        switchView('teacher');
+        showToast("Log masuk guru berjaya!", "success");
+      } else {
+        err.classList.remove("hidden");
+        input.focus();
+        input.select();
+      }
+    }
+
+    function lockTeacherDashboard() {
+      isTeacherAuthenticated = false;
+      const icon = document.getElementById("teacherTabLockIcon");
+      if (icon) icon.className = "fa-solid fa-lock";
+      switchView('parent');
+      showToast("Dashboard Guru telah dikunci.", "info");
+    }
+
     function populateStudentDropdown() {
       const select = document.getElementById("studentSelect");
-      const currentVal = select.value;
-      select.innerHTML = '<option value="" disabled selected>-- Sila Pilih Nama Murid Kelas 3V (21 Orang) --</option>';
+      const currentSelected = select.value;
+      select.innerHTML = '<option value="" disabled selected>-- Sila Klik Untuk Pilih Nama Murid --</option>';
 
-      studentList.forEach((name, index) => {
-        const id = "STU_" + (index + 1);
-        const record = studentRecords[id];
-        const statusIcon = getStatusIconText(record);
-
-        const option = document.createElement("option");
-        option.value = id;
-        option.textContent = `${name} [${statusIcon}]`;
-        select.appendChild(option);
+      studentList.forEach((st, index) => {
+        const opt = document.createElement("option");
+        opt.value = st.id;
+        const rec = studentRecords[st.id];
+        let statusTag = "";
+        if (rec) {
+          const check = evaluateCompletion(rec);
+          statusTag = check.isComplete ? " [Lengkap]" : " [Belum Lengkap]";
+        }
+        opt.textContent = `${index + 1}. ${st.name}${statusTag}`;
+        select.appendChild(opt);
       });
 
-      if (currentVal && studentRecords[currentVal]) {
-        select.value = currentVal;
+      if (currentSelected && studentList.some(s => s.id === currentSelected)) {
+        select.value = currentSelected;
       }
     }
 
-    function getStatusIconText(rec) {
-      if (!rec || !rec.isSubmitted) return "Belum Diisi";
-      const missing = checkMissingFields(rec);
-      if (missing.length === 0) return "Lengkap";
-      return "Kurang " + missing.length + " maklumat";
-    }
-
-    function loadStudentFormData(studentId) {
-      const alertBox = document.getElementById("studentFormStatusAlert");
-      if (!studentId || !studentRecords[studentId]) {
-        alertBox.classList.add("hidden");
-        return;
-      }
-
-      const data = studentRecords[studentId];
-
-      document.getElementById("g1_name").value = data.g1_name || "";
-      document.getElementById("g1_ic").value = data.g1_ic || "";
-      document.getElementById("g1_income").value = data.g1_income || "";
-
-      document.getElementById("g2_name").value = data.g2_name || "";
-      document.getElementById("g2_ic").value = data.g2_ic || "";
-      document.getElementById("g2_income").value = data.g2_income || "";
-
-      document.getElementById("dependents").value = data.dependents || "";
-
-      applyGuardian2UI(data.g2_is_na);
-
-      alertBox.classList.remove("hidden");
-      if (!data.isSubmitted) {
-        alertBox.className = "mt-3 text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200";
-        alertBox.innerHTML = `<i class="fa-solid fa-circle-info mr-1.5"></i> Murid ini belum pernah dihantar maklumat. Sila lengkapkan borang di bawah.`;
-      } else {
-        const missing = checkMissingFields(data);
-        if (missing.length === 0) {
-          alertBox.className = "mt-3 text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200";
-          alertBox.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i> Maklumat murid ini telah berstatus <strong>LENGKAP</strong> (Disimpan: ${data.lastUpdated || 'Hari ini'}). Anda boleh mengemas kini jika perlu.`;
-        } else {
-          alertBox.className = "mt-3 text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200";
-          alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Maklumat murid ini <strong>BELUM LENGKAP</strong>. Perkara belum lengkap: <span class="underline">${missing.join(', ')}</span>.`;
-        }
-      }
-    }
-
-    function toggleNoGuardian2(forceState) {
-      if (forceState !== undefined) {
-        currentG2IsNA = forceState;
+    function toggleGuardian2Status(forceNA = null) {
+      if (forceNA !== null) {
+        currentG2IsNA = forceNA;
       } else {
         currentG2IsNA = !currentG2IsNA;
       }
-      applyGuardian2UI(currentG2IsNA);
-    }
 
-    function applyGuardian2UI(isNA) {
-      currentG2IsNA = !!isNA;
-      const g2Name = document.getElementById("g2_name");
-      const g2Ic = document.getElementById("g2_ic");
-      const g2Income = document.getElementById("g2_income");
-      const notice = document.getElementById("g2DisabledNotice");
-      const toggleText = document.getElementById("g2ToggleText");
-      const toggleIcon = document.getElementById("g2ToggleIcon");
+      const g2Name = document.getElementById("g2Name");
+      const g2Ic = document.getElementById("g2Ic");
+      const g2Income = document.getElementById("g2Income");
+      const btn = document.getElementById("btnToggleG2");
+      const btnText = document.getElementById("btnToggleG2Text");
+      const stars = document.querySelectorAll(".req-star-g2");
 
       if (currentG2IsNA) {
-        g2Name.value = "TIADA MAKLUMAT";
-        g2Ic.value = "TIADA MAKLUMAT";
+        g2Name.value = "TIADA PENJAGA 2";
+        g2Ic.value = "TIADA";
         g2Income.value = "0";
+
+        g2Name.disabled = true;
+        g2Ic.disabled = true;
+        g2Income.disabled = true;
 
         g2Name.classList.add("bg-slate-200", "text-slate-500", "cursor-not-allowed");
         g2Ic.classList.add("bg-slate-200", "text-slate-500", "cursor-not-allowed");
         g2Income.classList.add("bg-slate-200", "text-slate-500", "cursor-not-allowed");
 
-        notice.classList.remove("hidden");
-        toggleText.textContent = "Batal: Ada Maklumat Penjaga 2";
-        toggleIcon.className = "fa-solid fa-rotate-left text-amber-600";
+        btn.className = "inline-flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-300 bg-indigo-50 text-indigo-800 hover:bg-indigo-100 transition";
+        btnText.textContent = "Aktifkan Semula Pengisian Penjaga 2";
+        stars.forEach(s => s.classList.add("hidden"));
       } else {
-        if (g2Name.value === "TIADA MAKLUMAT") g2Name.value = "";
-        if (g2Ic.value === "TIADA MAKLUMAT") g2Ic.value = "";
-        if (g2Income.value === "0" && !studentRecords[document.getElementById("studentSelect").value]?.isSubmitted) {
-          g2Income.value = "";
-        }
+        if (g2Name.value === "TIADA PENJAGA 2") g2Name.value = "";
+        if (g2Ic.value === "TIADA") g2Ic.value = "";
+        if (g2Income.value === "0") g2Income.value = "";
+
+        g2Name.disabled = false;
+        g2Ic.disabled = false;
+        g2Income.disabled = false;
 
         g2Name.classList.remove("bg-slate-200", "text-slate-500", "cursor-not-allowed");
         g2Ic.classList.remove("bg-slate-200", "text-slate-500", "cursor-not-allowed");
         g2Income.classList.remove("bg-slate-200", "text-slate-500", "cursor-not-allowed");
 
-        notice.classList.add("hidden");
-        toggleText.textContent = "Setkan: Tiada Maklumat Penjaga 2";
-        toggleIcon.className = "fa-regular fa-circle-xmark text-slate-500";
+        btn.className = "inline-flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100 transition";
+        btnText.textContent = "Tiada Penjaga 2 (Setkan Tiada Maklumat)";
+        stars.forEach(s => s.classList.remove("hidden"));
       }
     }
 
-    function setIndividualG2NA(fieldId) {
-      const field = document.getElementById(fieldId);
-      if (fieldId === 'g2_income') {
-        field.value = "0";
+    function loadStudentFormData(studentId) {
+      const notice = document.getElementById("studentFilledNotice");
+      const record = studentRecords[studentId];
+
+      if (record) {
+        notice.classList.remove("hidden");
+        document.getElementById("g1Name").value = record.g1Name || "";
+        document.getElementById("g1Ic").value = record.g1Ic || "";
+        document.getElementById("g1Income").value = record.g1Income !== undefined ? record.g1Income : "";
+        document.getElementById("dependentsCount").value = record.dependents !== undefined ? record.dependents : "";
+
+        if (record.g2IsNA) {
+          toggleGuardian2Status(true);
+        } else {
+          toggleGuardian2Status(false);
+          document.getElementById("g2Name").value = record.g2Name || "";
+          document.getElementById("g2Ic").value = record.g2Ic || "";
+          document.getElementById("g2Income").value = record.g2Income !== undefined ? record.g2Income : "";
+        }
       } else {
-        field.value = "TIADA MAKLUMAT";
+        notice.classList.add("hidden");
+        resetFormInputsExceptStudent();
       }
-      showToast("Medan ditandakan sebagai tiada maklumat / 0", "info");
     }
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
+    function resetFormInputsExceptStudent() {
+      document.getElementById("g1Name").value = "";
+      document.getElementById("g1Ic").value = "";
+      document.getElementById("g1Income").value = "";
+      document.getElementById("dependentsCount").value = "";
+      toggleGuardian2Status(false);
+      document.getElementById("g2Name").value = "";
+      document.getElementById("g2Ic").value = "";
+      document.getElementById("g2Income").value = "";
+    }
 
+    function resetForm() {
+      document.getElementById("studentDataForm").reset();
+      document.getElementById("studentFilledNotice").classList.add("hidden");
+      toggleGuardian2Status(false);
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
       const studentId = document.getElementById("studentSelect").value;
       if (!studentId) {
         showToast("Sila pilih nama murid terlebih dahulu!", "error");
-        document.getElementById("studentSelect").focus();
         return;
       }
 
-      const g1Name = document.getElementById("g1_name").value.trim();
-      const g1Ic = document.getElementById("g1_ic").value.trim();
-      const g1Income = document.getElementById("g1_income").value.trim();
+      const g1Name = document.getElementById("g1Name").value.trim().toUpperCase();
+      const g1Ic = document.getElementById("g1Ic").value.trim();
+      const g1Income = document.getElementById("g1Income").value.trim();
 
-      const g2Name = document.getElementById("g2_name").value.trim();
-      const g2Ic = document.getElementById("g2_ic").value.trim();
-      const g2Income = document.getElementById("g2_income").value.trim();
+      const g2IsNA = currentG2IsNA;
+      const g2Name = g2IsNA ? "TIADA" : document.getElementById("g2Name").value.trim().toUpperCase();
+      const g2Ic = g2IsNA ? "TIADA" : document.getElementById("g2Ic").value.trim();
+      const g2Income = g2IsNA ? "0" : document.getElementById("g2Income").value.trim();
 
-      const dependents = document.getElementById("dependents").value.trim();
+      const dependents = document.getElementById("dependentsCount").value.trim();
 
-      // Kemas kini rekod dalam memori
-      studentRecords[studentId] = {
-        ...studentRecords[studentId],
-        g1_name: g1Name,
-        g1_ic: g1Ic,
-        g1_income: g1Income,
-        g2_name: g2Name,
-        g2_ic: g2Ic,
-        g2_income: g2Income,
-        g2_is_na: currentG2IsNA,
+      const newRecord = {
+        studentId: studentId,
+        g1Name: g1Name,
+        g1Ic: g1Ic,
+        g1Income: g1Income,
+        g2IsNA: g2IsNA,
+        g2Name: g2Name,
+        g2Ic: g2Ic,
+        g2Income: g2Income,
         dependents: dependents,
-        lastUpdated: new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-        isSubmitted: true
+        updatedAt: new Date().toISOString()
       };
 
-      // Simpan ke LocalStorage
-      saveStateToLocalStorage();
-
-      // Semak 7 perkara wajib
-      const missing = checkMissingFields(studentRecords[studentId]);
-
-      if (missing.length === 0) {
-        showToast("Berjaya! Semua 7 maklumat telah lengkap disimpan.", "success");
-      } else {
-        showToast(`Maklumat disimpan, namun ada ${missing.length} maklumat belum lengkap.`, "warning");
-      }
+      studentRecords[studentId] = newRecord;
+      localStorage.setItem("class3v_records", JSON.stringify(studentRecords));
 
       populateStudentDropdown();
-      updateTeacherDashboard();
-      loadStudentFormData(studentId);
+      updateDashboardStats();
+      showToast("Maklumat murid berjaya disimpan!", "success");
+      document.getElementById("studentFilledNotice").classList.remove("hidden");
     }
 
-    function resetCurrentForm() {
-      document.getElementById("studentDataForm").reset();
-      currentG2IsNA = false;
-      applyGuardian2UI(false);
-      document.getElementById("studentFormStatusAlert").classList.add("hidden");
-    }
+    function evaluateCompletion(rec) {
+      if (!rec) {
+        return {
+          status: "unsubmitted",
+          label: "Belum Diisi",
+          isComplete: false,
+          missingFields: ["Semua maklumat belum diisi"]
+        };
+      }
 
-    function checkMissingFields(rec) {
       const missing = [];
-      if (!rec) return ["Semua Maklumat"];
+      if (!rec.g1Name) missing.push("Nama Penjaga 1");
+      if (!rec.g1Ic) missing.push("No. KP Penjaga 1");
+      if (rec.g1Income === "" || rec.g1Income === null || isNaN(rec.g1Income)) missing.push("Pendapatan Penjaga 1");
 
-      // 1. Nama Penjaga 1
-      if (!rec.g1_name || rec.g1_name.trim() === "") {
-        missing.push("Nama Penjaga 1");
+      if (!rec.g2IsNA) {
+        if (!rec.g2Name) missing.push("Nama Penjaga 2 (Ibu)");
+        if (!rec.g2Ic) missing.push("No. KP Penjaga 2");
+        if (rec.g2Income === "" || rec.g2Income === null || isNaN(rec.g2Income)) missing.push("Pendapatan Penjaga 2");
       }
 
-      // 2. No Kad Pengenalan Penjaga 1
-      if (!rec.g1_ic || rec.g1_ic.trim() === "") {
-        missing.push("No. KP Penjaga 1");
-      }
-
-      // 3. Pendapatan bulanan Penjaga 1
-      if (rec.g1_income === "" || rec.g1_income === null || rec.g1_income === undefined) {
-        missing.push("Pendapatan Penjaga 1");
-      }
-
-      // Penjaga 2 (Jika tanda NA, dianggap telah selesai)
-      if (!rec.g2_is_na) {
-        // 4. Nama Penjaga 2
-        if (!rec.g2_name || rec.g2_name.trim() === "") {
-          missing.push("Nama Penjaga 2");
-        }
-        // 5. No Kad Pengenalan Penjaga 2
-        if (!rec.g2_ic || rec.g2_ic.trim() === "") {
-          missing.push("No. KP Penjaga 2");
-        }
-        // 6. Pendapatan Penjaga 2
-        if (rec.g2_income === "" || rec.g2_income === null || rec.g2_income === undefined) {
-          missing.push("Pendapatan Penjaga 2");
-        }
-      }
-
-      // 7. Tanggungan
-      if (!rec.dependents || rec.dependents.trim() === "" || parseInt(rec.dependents) <= 0) {
+      if (rec.dependents === "" || rec.dependents === null || isNaN(rec.dependents)) {
         missing.push("Bil. Tanggungan");
       }
 
-      return missing;
+      if (missing.length === 0) {
+        return {
+          status: "completed",
+          label: "Lengkap",
+          isComplete: true,
+          missingFields: []
+        };
+      } else {
+        return {
+          status: "incomplete",
+          label: "Belum Lengkap",
+          isComplete: false,
+          missingFields: missing
+        };
+      }
     }
 
-    function updateTeacherDashboard() {
-      let completeCount = 0;
+    function updateDashboardStats() {
+      const total = studentList.length;
+      let completedCount = 0;
       let incompleteCount = 0;
-      let notFilledCount = 0;
+      let unsubmittedCount = 0;
 
-      studentList.forEach((_, idx) => {
-        const id = "STU_" + (idx + 1);
-        const rec = studentRecords[id];
-
-        if (!rec || !rec.isSubmitted) {
-          notFilledCount++;
-        } else {
-          const missing = checkMissingFields(rec);
-          if (missing.length === 0) {
-            completeCount++;
-          } else {
-            incompleteCount++;
-          }
-        }
+      studentList.forEach(st => {
+        const rec = studentRecords[st.id];
+        const res = evaluateCompletion(rec);
+        if (res.status === "completed") completedCount++;
+        else if (res.status === "incomplete") incompleteCount++;
+        else unsubmittedCount++;
       });
 
-      document.getElementById("statTotalCount").textContent = studentList.length;
-      document.getElementById("statCompleteCount").textContent = completeCount;
-      document.getElementById("statIncompleteCount").textContent = incompleteCount;
-      document.getElementById("statNotFilledCount").textContent = notFilledCount;
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statCompleted").textContent = completedCount;
+      document.getElementById("statIncomplete").textContent = incompleteCount;
+      document.getElementById("statUnsubmitted").textContent = unsubmittedCount;
 
-      const unsubmittedTotal = incompleteCount + notFilledCount;
-      const badge = document.getElementById("unsubmittedBadge");
-      if (unsubmittedTotal > 0) {
-        badge.textContent = unsubmittedTotal;
-        badge.classList.remove("hidden");
+      const unsubmittedBadge = document.getElementById("unsubmittedBadge");
+      if (unsubmittedCount > 0) {
+        unsubmittedBadge.textContent = unsubmittedCount;
+        unsubmittedBadge.classList.remove("hidden");
       } else {
-        badge.classList.add("hidden");
+        unsubmittedBadge.classList.add("hidden");
       }
-
-      const summaryText = document.getElementById("missingSummaryText");
-      if (unsubmittedTotal === 0) {
-        document.getElementById("missingSummaryNotice").className = "bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-emerald-900";
-        summaryText.innerHTML = `Tahniah! Semua <strong>${studentList.length} orang murid</strong> telah mempunyai maklumat lengkap. Tiada tindakan susulan diperlukan.`;
-      } else {
-        document.getElementById("missingSummaryNotice").className = "bg-rose-50 border border-rose-200 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-rose-900";
-        summaryText.innerHTML = `Terdapat <strong>${notFilledCount} murid belum isi langsung</strong> dan <strong>${incompleteCount} murid belum lengkap</strong>.`;
-      }
-
-      renderTable();
     }
 
     function renderTable() {
+      updateDashboardStats();
       const tbody = document.getElementById("studentTableBody");
-      const searchTerm = (document.getElementById("searchInput")?.value || "").toLowerCase().trim();
-      const filterStatus = document.getElementById("statusFilter")?.value || "ALL";
-      const noResultsAlert = document.getElementById("noResultsAlert");
+      const searchVal = document.getElementById("searchInput").value.toLowerCase().trim();
+      const statusFilter = document.getElementById("statusFilter").value;
+      const emptyNotice = document.getElementById("emptyTableNotice");
 
       tbody.innerHTML = "";
-      let matches = 0;
 
-      studentList.forEach((name, index) => {
-        const id = "STU_" + (index + 1);
-        const rec = studentRecords[id];
-        const missing = checkMissingFields(rec);
+      let visibleCount = 0;
 
-        const isUnfilled = !rec.isSubmitted;
-        const isComplete = rec.isSubmitted && missing.length === 0;
-        const isIncomplete = rec.isSubmitted && missing.length > 0;
+      studentList.forEach((st, index) => {
+        const rec = studentRecords[st.id];
+        const evalRes = evaluateCompletion(rec);
 
-        if (filterStatus === "COMPLETE" && !isComplete) return;
-        if (filterStatus === "INCOMPLETE" && !isIncomplete) return;
-        if (filterStatus === "UNFILLED" && !isUnfilled) return;
-
-        const searchPool = `${name} ${rec.g1_name} ${rec.g1_ic} ${rec.g2_name} ${rec.g2_ic}`.toLowerCase();
-        if (searchTerm && !searchPool.includes(searchTerm)) {
+        if (statusFilter !== "all" && evalRes.status !== statusFilter) {
           return;
         }
 
-        matches++;
-
-        let statusBadge = '';
-        if (isUnfilled) {
-          statusBadge = '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200"><i class="fa-solid fa-circle-xmark mr-1"></i> Belum Diisi</span>';
-        } else if (isComplete) {
-          statusBadge = '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200"><i class="fa-solid fa-circle-check mr-1"></i> Lengkap</span>';
-        } else {
-          statusBadge = '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Kurang Lengkap</span>';
+        if (searchVal) {
+          const matchName = st.name.toLowerCase().includes(searchVal);
+          const matchG1 = rec && rec.g1Name && rec.g1Name.toLowerCase().includes(searchVal);
+          const matchG1Ic = rec && rec.g1Ic && rec.g1Ic.includes(searchVal);
+          const matchG2 = rec && rec.g2Name && rec.g2Name.toLowerCase().includes(searchVal);
+          if (!matchName && !matchG1 && !matchG1Ic && !matchG2) {
+            return;
+          }
         }
 
-        let missingContent = '';
-        if (isUnfilled) {
-          missingContent = '<span class="text-rose-600 font-semibold italic text-[11px]">Semua 7 perkara belum diisi</span>';
-        } else if (isComplete) {
-          missingContent = '<span class="text-emerald-700 font-medium flex items-center text-[11px]"><i class="fa-solid fa-check-double mr-1 text-emerald-500"></i> Tiada maklumat tertinggal</span>';
-        } else {
-          missingContent = `<div class="flex flex-wrap gap-1">` + 
-            missing.map(m => `<span class="bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded text-[10px] font-semibold">${m}</span>`).join('') +
-            `</div>`;
-        }
-
-        let g1Display = '<span class="text-slate-400 italic">Belum diisi</span>';
-        if (rec.g1_name || rec.g1_ic || rec.g1_income) {
-          g1Display = `
-            <div class="font-bold text-slate-800 uppercase">${rec.g1_name || '<span class="text-rose-500">Nama Kosong</span>'}</div>
-            <div class="text-[11px] text-slate-500">KP: ${rec.g1_ic || '<span class="text-rose-500">Tiada KP</span>'}</div>
-            <div class="text-[11px] text-indigo-700 font-semibold">Gaji: ${rec.g1_income ? 'RM ' + Number(rec.g1_income).toLocaleString('ms-MY') : '<span class="text-rose-500">Tiada Pendapatan</span>'}</div>
-          `;
-        }
-
-        let g2Display = '<span class="text-slate-400 italic">Belum diisi</span>';
-        if (rec.g2_is_na) {
-          g2Display = `<span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 rounded text-[11px] font-medium border border-slate-200"><i class="fa-solid fa-ban text-slate-400 mr-1"></i> Tiada Penjaga 2</span>`;
-        } else if (rec.g2_name || rec.g2_ic || rec.g2_income) {
-          g2Display = `
-            <div class="font-bold text-slate-800 uppercase">${rec.g2_name || '<span class="text-rose-500">Nama Kosong</span>'}</div>
-            <div class="text-[11px] text-slate-500">KP: ${rec.g2_ic || '<span class="text-rose-500">Tiada KP</span>'}</div>
-            <div class="text-[11px] text-pink-700 font-semibold">Gaji: ${rec.g2_income !== "" ? 'RM ' + Number(rec.g2_income).toLocaleString('ms-MY') : '<span class="text-rose-500">Tiada Pendapatan</span>'}</div>
-          `;
-        }
+        visibleCount++;
 
         const tr = document.createElement("tr");
         tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
-        tr.innerHTML = `
-          <td class="p-3.5 text-center font-bold text-slate-500">${index + 1}</td>
-          <td class="p-3.5">
-            <span class="font-bold text-slate-900 block">${name}</span>
-            <span class="text-[10px] text-slate-400">ID: ${id}</span>
-          </td>
-          <td class="p-3.5 text-center">${statusBadge}</td>
-          <td class="p-3.5 leading-snug">${g1Display}</td>
-          <td class="p-3.5 leading-snug">${g2Display}</td>
-          <td class="p-3.5 text-center font-bold text-slate-700">${rec.dependents ? rec.dependents + ' orang' : '<span class="text-slate-400 italic">-</span>'}</td>
-          <td class="p-3.5">${missingContent}</td>
-          <td class="p-3.5 text-center no-print">
-            <div class="flex items-center justify-center space-x-1.5">
-              <button onclick="quickFillStudent('${id}')" title="Isi / Kemas Kini Borang" class="p-1.5 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-lg transition">
-                <i class="fa-solid fa-pencil"></i>
-              </button>
-              <button onclick="clearStudentData('${id}')" title="Padam Rekod" class="p-1.5 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-lg transition">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </td>
+
+        let statusBadge = "";
+        if (evalRes.status === "completed") {
+          statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800"><i class="fa-solid fa-circle-check mr-1 text-[10px]"></i> Lengkap</span>`;
+        } else if (evalRes.status === "incomplete") {
+          statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800"><i class="fa-solid fa-triangle-exclamation mr-1 text-[10px]"></i> Belum Lengkap</span>`;
+        } else {
+          statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800"><i class="fa-solid fa-circle-xmark mr-1 text-[10px]"></i> Belum Isi</span>`;
+        }
+
+        let g1Col = `<span class="text-slate-400 italic">Tiada Rekod</span>`;
+        if (rec && (rec.g1Name || rec.g1Ic)) {
+          g1Col = `<div>
+            <div class="font-bold text-slate-800">${rec.g1Name || '-'}</div>
+            <div class="text-[11px] text-slate-500 font-mono">KP: ${rec.g1Ic || '-'}</div>
+            <div class="text-[11px] font-semibold text-emerald-700">RM ${rec.g1Income ? Number(rec.g1Income).toLocaleString('ms-MY') : '0'} / bln</div>
+          </div>`;
+        }
+
+        let g2Col = `<span class="text-slate-400 italic">Tiada Rekod</span>`;
+        if (rec) {
+          if (rec.g2IsNA) {
+            g2Col = `<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-semibold border border-slate-200">Tiada Maklumat Penjaga 2</span>`;
+          } else if (rec.g2Name || rec.g2Ic) {
+            g2Col = `<div>
+              <div class="font-bold text-slate-800">${rec.g2Name || '-'}</div>
+              <div class="text-[11px] text-slate-500 font-mono">KP: ${rec.g2Ic || '-'}</div>
+              <div class="text-[11px] font-semibold text-emerald-700">RM ${rec.g2Income ? Number(rec.g2Income).toLocaleString('ms-MY') : '0'} / bln</div>
+            </div>`;
+          }
+        }
+
+        let depCol = rec && rec.dependents !== undefined && rec.dependents !== "" ? `<span class="font-bold text-slate-800">${rec.dependents} Org</span>` : `<span class="text-slate-400">-</span>`;
+
+        let missingCol = "";
+        if (evalRes.status === "completed") {
+          missingCol = `<span class="text-emerald-700 font-medium flex items-center text-[11px]"><i class="fa-solid fa-check mr-1.5"></i> Maklumat telah lengkap</span>`;
+        } else if (evalRes.status === "unsubmitted") {
+          missingCol = `<span class="text-rose-600 font-medium text-[11px] flex items-center"><i class="fa-solid fa-clock mr-1.5"></i> Belum mengisi borang</span>`;
+        } else {
+          missingCol = `<div class="space-y-1">` + evalRes.missingFields.map(f => `<span class="inline-block bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-semibold px-2 py-0.5 rounded mr-1 mb-1"><i class="fa-solid fa-xmark mr-1 text-[9px]"></i>${f}</span>`).join("") + `</div>`;
+        }
+
+        let actionCol = `
+          <button onclick="editStudentRecord('${st.id}')" class="p-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-semibold transition" title="Buka dan Kemaskini">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
         `;
+
+        tr.innerHTML = `
+          <td class="py-3 px-3 text-center text-slate-400 font-mono">${index + 1}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">${st.name}</td>
+          <td class="py-3 px-3 text-center">${statusBadge}</td>
+          <td class="py-3 px-4">${g1Col}</td>
+          <td class="py-3 px-4">${g2Col}</td>
+          <td class="py-3 px-3 text-center">${depCol}</td>
+          <td class="py-3 px-4">${missingCol}</td>
+          <td class="py-3 px-3 text-center no-print">${actionCol}</td>
+        `;
+
         tbody.appendChild(tr);
       });
 
-      if (matches === 0) {
-        noResultsAlert.classList.remove("hidden");
+      if (visibleCount === 0) {
+        emptyNotice.classList.remove("hidden");
       } else {
-        noResultsAlert.classList.add("hidden");
+        emptyNotice.classList.add("hidden");
       }
     }
 
-    function quickFillStudent(id) {
+    function editStudentRecord(studentId) {
       switchView('parent');
-      document.getElementById("studentSelect").value = id;
-      loadStudentFormData(id);
-      window.scrollTo({ top: 120, behavior: 'smooth' });
+      document.getElementById("studentSelect").value = studentId;
+      loadStudentFormData(studentId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function clearStudentData(id) {
-      if (!studentRecords[id]) return;
-      const sName = studentRecords[id].name;
-      
-      studentRecords[id] = {
-        id: id,
-        name: sName,
-        g1_name: "",
-        g1_ic: "",
-        g1_income: "",
-        g2_name: "",
-        g2_ic: "",
-        g2_income: "",
-        g2_is_na: false,
-        dependents: "",
-        lastUpdated: null,
-        isSubmitted: false
-      };
-
-      saveStateToLocalStorage();
-      showToast(`Rekod untuk ${sName} telah dikosongkan.`, "info");
-      populateStudentDropdown();
-      updateTeacherDashboard();
-    }
-
-    function copyUnfilledNames() {
-      const unfilled = [];
-      studentList.forEach((_, idx) => {
-        const id = "STU_" + (idx + 1);
-        const rec = studentRecords[id];
-        const missing = checkMissingFields(rec);
-        if (!rec.isSubmitted) {
-          unfilled.push(`• ${rec.name} (BELUM ISI)`);
-        } else if (missing.length > 0) {
-          unfilled.push(`• ${rec.name} (BELUM LENGKAP: ${missing.join(', ')})`);
+    function copyUnsubmittedList() {
+      const unsubmitted = [];
+      studentList.forEach(st => {
+        const rec = studentRecords[st.id];
+        const res = evaluateCompletion(rec);
+        if (res.status === "unsubmitted" || res.status === "incomplete") {
+          unsubmitted.push(st.name);
         }
       });
 
-      if (unfilled.length === 0) {
-        showToast("Semua murid kelas 3V telah lengkap, tiada senarai untuk disalin!", "success");
+      if (unsubmitted.length === 0) {
+        showToast("Hebat! Semua maklumat 21 murid telah lengkap.", "success");
         return;
       }
 
-      const textToCopy = `PERINGATAN KEMAS KINI MAKLUMAT MURID KELAS 3V\nSenarai murid yang belum mengisi / belum lengkap:\n\n${unfilled.join('\n')}\n\nMohon ibu bapa / penjaga berkaitan mengambil tindakan segera. Terima kasih.`;
+      let text = `*PERINGATAN MESRA PENGISIAN MAKLUMAT MURID KELAS 3V*\n`;
+      text += `Berikut adalah senarai murid yang *belum mengisi / belum lengkap* maklumat waris:\n\n`;
+      unsubmitted.forEach((name, i) => {
+        text += `${i + 1}. ${name}\n`;
+      });
+      text += `\nMohon kerjasama ibu bapa/waris untuk melengkapkan maklumat ini secepat mungkin. Terima kasih.`;
 
-      const dummy = document.createElement("textarea");
-      document.body.appendChild(dummy);
-      dummy.value = textToCopy;
-      dummy.select();
-      document.execCommand('copy');
-      document.body.removeChild(dummy);
+      const tempTextarea = document.createElement("textarea");
+      tempTextarea.value = text;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextarea);
 
-      showToast("Senarai nama murid belum lengkap telah disalin ke papan keratan (clipboard)!", "success");
+      showToast(`Senarai ${unsubmitted.length} nama berjaya disalin ke clipboard!`, "success");
     }
 
     function exportToCSV() {
-      let csv = "Bil,Nama Murid (Kelas 3V),Status,Nama Penjaga 1,No KP Penjaga 1,Pendapatan Penjaga 1 (RM),Nama Penjaga 2,No KP Penjaga 2,Pendapatan Penjaga 2 (RM),Tanggungan,Medan Tidak Lengkap\n";
+      let csv = "\uFEFF"; // UTF-8 BOM for Excel
+      csv += "Bil,Nama Murid,Status,Nama Penjaga 1,No KP Penjaga 1,Pendapatan Penjaga 1 (RM),Nama Penjaga 2 (Ibu),No KP Penjaga 2,Pendapatan Penjaga 2 (RM),Bil Tanggungan,Medan Belum Lengkap\n";
 
-      studentList.forEach((name, idx) => {
-        const id = "STU_" + (idx + 1);
-        const r = studentRecords[id];
-        const missing = checkMissingFields(r);
+      studentList.forEach((st, idx) => {
+        const rec = studentRecords[st.id];
+        const res = evaluateCompletion(rec);
 
-        let status = "Belum Diisi";
-        if (r.isSubmitted) {
-          status = missing.length === 0 ? "Lengkap" : "Kurang Lengkap";
+        const clean = str => `"${(str || '').toString().replace(/"/g, '""')}"`;
+
+        const bil = idx + 1;
+        const name = clean(st.name);
+        const status = clean(res.label);
+        const g1Name = clean(rec ? rec.g1Name : "");
+        const g1Ic = clean(rec ? rec.g1Ic : "");
+        const g1Inc = rec && rec.g1Income !== undefined ? rec.g1Income : "";
+
+        let g2Name = "";
+        let g2Ic = "";
+        let g2Inc = "";
+
+        if (rec) {
+          if (rec.g2IsNA) {
+            g2Name = "TIADA PENJAGA 2";
+            g2Ic = "TIADA";
+            g2Inc = "0";
+          } else {
+            g2Name = rec.g2Name || "";
+            g2Ic = rec.g2Ic || "";
+            g2Inc = rec.g2Income !== undefined ? rec.g2Income : "";
+          }
         }
 
-        const g2Name = r.g2_is_na ? "TIADA MAKLUMAT" : (r.g2_name || "");
-        const g2Ic = r.g2_is_na ? "TIADA MAKLUMAT" : (r.g2_ic || "");
-        const g2Income = r.g2_is_na ? "0" : (r.g2_income || "0");
+        const dep = rec && rec.dependents !== undefined ? rec.dependents : "";
+        const missing = clean(res.missingFields.join("; "));
 
-        const row = [
-          idx + 1,
-          `"${name.replace(/"/g, '""')}"`,
-          `"${status}"`,
-          `"${(r.g1_name || '').replace(/"/g, '""')}"`,
-          `"${(r.g1_ic || '').replace(/"/g, '""')}"`,
-          `"${r.g1_income || '0'}"`,
-          `"${g2Name.replace(/"/g, '""')}"`,
-          `"${g2Ic.replace(/"/g, '""')}"`,
-          `"${g2Income}"`,
-          `"${r.dependents || '0'}"`,
-          `"${missing.join('; ')}"`
-        ];
-
-        csv += row.join(",") + "\n";
+        csv += `${bil},${name},${status},${g1Name},${g1Ic},${g1Inc},${clean(g2Name)},${clean(g2Ic)},${g2Inc},${dep},${missing}\n`;
       });
 
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `Rumusan_Maklumat_Murid_3V_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `Maklumat_Murid_Kelas_3V_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      showToast("Fail CSV Kelas 3V berjaya dimuat turun!", "success");
+      showToast("Fail CSV berjaya dimuat turun!", "success");
     }
 
     function openManageStudentsModal() {
-      document.getElementById("customStudentNamesTextarea").value = studentList.join("\n");
-      updateDetectedCount();
-      document.getElementById("manageNamesModal").classList.remove("hidden");
+      const modal = document.getElementById("manageNamesModal");
+      const textarea = document.getElementById("importNamesTextarea");
+      textarea.value = studentList.map(s => s.name).join("\n");
+      modal.classList.remove("hidden");
     }
 
     function closeManageStudentsModal() {
       document.getElementById("manageNamesModal").classList.add("hidden");
     }
 
-    function switchImportTab(mode) {
-      const pasteArea = document.getElementById("pasteImportArea");
-      const fileArea = document.getElementById("fileImportArea");
-      const btnPaste = document.getElementById("importTabCopyBtn");
-      const btnFile = document.getElementById("importTabFileBtn");
+    function switchImportTab(tab) {
+      const pasteSec = document.getElementById("importPasteSection");
+      const uploadSec = document.getElementById("importUploadSection");
+      const pasteBtn = document.getElementById("tabPasteBtn");
+      const uploadBtn = document.getElementById("tabUploadBtn");
 
-      if (mode === 'paste') {
-        pasteArea.classList.remove("hidden");
-        fileArea.classList.add("hidden");
-        btnPaste.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
-        btnFile.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+      if (tab === 'paste') {
+        pasteSec.classList.remove("hidden");
+        uploadSec.classList.add("hidden");
+        pasteBtn.className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-700 font-bold";
+        uploadBtn.className = "py-2 px-4 text-slate-500 hover:text-slate-800";
       } else {
-        pasteArea.classList.add("hidden");
-        fileArea.classList.remove("hidden");
-        btnFile.className = "flex-1 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition";
-        btnPaste.className = "flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+        pasteSec.classList.add("hidden");
+        uploadSec.classList.remove("hidden");
+        uploadBtn.className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-700 font-bold";
+        pasteBtn.className = "py-2 px-4 text-slate-500 hover:text-slate-800";
       }
     }
 
-    function updateDetectedCount() {
-      const raw = document.getElementById("customStudentNamesTextarea").value;
-      const lines = raw.split("\n").map(l => l.trim()).filter(l => l.length > 0);
-      document.getElementById("detectedCountLabel").textContent = `${lines.length} Nama dikesan`;
-    }
-
-    function saveCustomStudentNames() {
-      const raw = document.getElementById("customStudentNamesTextarea").value;
-      const cleanNumbering = document.getElementById("autoCleanNumbering").checked;
-
-      let lines = raw.split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
-
-      if (cleanNumbering) {
-        lines = lines.map(line => line.replace(/^[\d]+[\.\-\)\s]+/, '').trim());
-      }
-
-      if (lines.length === 0) {
-        showToast("Senarai nama tidak boleh dibiarkan kosong!", "error");
-        return;
-      }
-
-      studentList = lines;
-
-      studentList.forEach((name, index) => {
-        const id = "STU_" + (index + 1);
-        if (!studentRecords[id]) {
-          studentRecords[id] = {
-            id: id,
-            name: name,
-            g1_name: "",
-            g1_ic: "",
-            g1_income: "",
-            g2_name: "",
-            g2_ic: "",
-            g2_income: "",
-            g2_is_na: false,
-            dependents: "",
-            lastUpdated: null,
-            isSubmitted: false
-          };
-        } else {
-          studentRecords[id].name = name;
-        }
-      });
-
-      saveStateToLocalStorage();
-      populateStudentDropdown();
-      updateTeacherDashboard();
-      closeManageStudentsModal();
-      showToast(`Senarai ${studentList.length} orang murid berjaya dikemas kini!`, "success");
-    }
-
-    function resetToDefaultNames() {
-      document.getElementById("customStudentNamesTextarea").value = DEFAULT_STUDENTS.join("\n");
-      updateDetectedCount();
-    }
-
-    function handleCSVFileUpload(event) {
+    function handleCsvFileSelected(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        const content = e.target.result;
-        const rows = content.split(/\r?\n/).map(r => r.trim()).filter(r => r.length > 0);
-        
-        const extractedNames = [];
-        rows.forEach((row, idx) => {
-          if (idx === 0 && (row.toLowerCase().includes("nama") || row.toLowerCase().includes("name"))) {
-            return;
+        const text = e.target.result;
+        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+        const parsedNames = [];
+
+        lines.forEach(line => {
+          const cells = line.split(/[,;\t]/);
+          let target = cells[0];
+          if (cells.length > 1 && !isNaN(cells[0].trim())) {
+            target = cells[1];
           }
-          const cols = row.split(",");
-          let potentialName = cols[0].replace(/^["']|["']$/g, '').trim();
-          if (potentialName) {
-            extractedNames.push(potentialName);
+          let clean = target.replace(/^["']|["']$/g, '').trim();
+          if (clean.length > 0 && !clean.toLowerCase().includes("nama")) {
+            parsedNames.push(clean);
           }
         });
 
-        if (extractedNames.length > 0) {
-          document.getElementById("customStudentNamesTextarea").value = extractedNames.join("\n");
+        if (parsedNames.length > 0) {
+          document.getElementById("importNamesTextarea").value = parsedNames.join("\n");
           switchImportTab('paste');
-          updateDetectedCount();
-          showToast(`${extractedNames.length} nama dikesan daripada fail CSV!`, "success");
+          showToast(`Berjaya membaca ${parsedNames.length} nama daripada fail!`, "info");
         } else {
-          showToast("Tiada nama dapat dikesan dalam fail tersebut.", "error");
+          showToast("Tiada nama dapat diekstrak daripada fail ini.", "error");
         }
       };
       reader.readAsText(file);
+    }
+
+    function saveImportedStudents() {
+      const rawText = document.getElementById("importNamesTextarea").value;
+      const cleanNumbers = document.getElementById("chkCleanNumbers").checked;
+
+      const lines = rawText.split(/\r?\n/);
+      const cleanNames = [];
+
+      lines.forEach(line => {
+        let name = line.trim();
+        if (cleanNumbers) {
+          name = name.replace(/^\d+[\.\)\-\s]+/, '').trim();
+        }
+        name = name.replace(/^["']|["']$/g, '').trim().toUpperCase();
+        if (name.length > 1) {
+          cleanNames.push(name);
+        }
+      });
+
+      if (cleanNames.length === 0) {
+        showToast("Sila masukkan sekurang-kurangnya satu nama murid!", "error");
+        return;
+      }
+
+      studentList = cleanNames.map((name, idx) => ({
+        id: "s_" + (idx + 1),
+        name: name
+      }));
+
+      localStorage.setItem("class3v_students", JSON.stringify(studentList));
+      populateStudentDropdown();
+      renderTable();
+      closeManageStudentsModal();
+      showToast(`Senarai ${studentList.length} orang murid berjaya dikemas kini!`, "success");
+    }
+
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("toastBox");
+      const text = document.getElementById("toastMessage");
+      const icon = document.getElementById("toastIcon");
+
+      text.textContent = message;
+
+      if (type === "success") {
+        icon.className = "fa-solid fa-circle-check text-emerald-400";
+      } else if (type === "error") {
+        icon.className = "fa-solid fa-circle-exclamation text-rose-400";
+      } else {
+        icon.className = "fa-solid fa-circle-info text-sky-400";
+      }
+
+      toast.classList.remove("translate-y-24", "opacity-0");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      setTimeout(() => {
+        toast.classList.remove("translate-y-0", "opacity-100");
+        toast.classList.add("translate-y-24", "opacity-0");
+      }, 3500);
     }
   </script>
 </body>
